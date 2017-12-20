@@ -1,0 +1,168 @@
+IF(QT5_COMPILE)
+
+    set(GUI_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/GUI)
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_INCLUDE_CURRENT_DIR ON)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS} ${Qt5Core_EXECUTABLE_COMPILE_FLAGS} ${Qt5Gui_EXECUTABLE_COMPILE_FLAGS} ${Qt5Svg_EXECUTABLE_COMPILE_FLAGS}")
+
+set(SOURCES 		sensors/threadsensors.cpp
+		        gui/threadgui.cpp
+		        gui/mainwindow.cpp
+		        src/main.cpp
+		        sensors/sensors.cpp
+			GUI/threadgui.cpp 
+			sensors/sensors.cpp 
+			sensors/threadsensors.cpp 
+			AprilTags/april_tags/matd.c 
+			AprilTags/april_tags/zhash.c 
+			AprilTags/april_tags/zarray.c 
+			AprilTags/april_tags/workerpool.c 
+			AprilTags/april_tags/unionfind.c 
+			AprilTags/april_tags/tag36h11.c 
+			AprilTags/april_tags/tag36h10.c 
+			AprilTags/april_tags/segment2.c 
+			AprilTags/april_tags/image_u32.c 
+			AprilTags/april_tags/image_u8.c 
+			AprilTags/april_tags/image_f32.c 
+			AprilTags/april_tags/homography.c 
+			AprilTags/april_tags/graymodel.c 
+			AprilTags/april_tags/g2d.c 
+			AprilTags/april_tags/apriltag.c 
+			AprilTags/AprilTagsSrc/Edge.cc 
+    			AprilTags/AprilTagsSrc/UnionFindSimple.cc 
+    			AprilTags/AprilTagsSrc/TagFamily.cc 
+    			AprilTags/AprilTagsSrc/TagDetector.cc 
+    			AprilTags/AprilTagsSrc/TagDetection.cc 
+    			AprilTags/AprilTagsSrc/Segment.cc 
+    			AprilTags/AprilTagsSrc/Quad.cc 
+    			AprilTags/AprilTagsSrc/MathUtil.cc 
+    			AprilTags/AprilTagsSrc/Homography33.cc 
+    			AprilTags/AprilTagsSrc/GrayModel.cc 
+    			AprilTags/AprilTagsSrc/GLineSegment2D.cc 
+    			AprilTags/AprilTagsSrc/GLine2D.cc 
+    			AprilTags/AprilTagsSrc/Gaussian.cc 
+    			AprilTags/AprilTagsSrc/FloatImage.cc 
+			algorithm/pose3di.cpp 
+    			algorithm/world.cpp 
+    			algorithm/drawworld.cpp 
+    			algorithm/geometryutils.cpp 
+    			algorithm/markerinfo.cpp 
+    			algorithm/drawingutils.cpp 
+    			algorithm/cameramanager.cpp 
+    			algorithm/kalmanfilter.cpp 
+    			algorithm/weightedaveragefilter.cpp   
+    			algorithm/sharer.cpp
+	)
+
+  set(HEADERS 		sensors/threadsensors.h
+			sensors/sensors.h
+                	GUI/threadgui.h
+                	GUI/mainwindow.h
+			GUI/threadgui.h 
+
+			AprilTags/april_tags/apriltag.h 
+			AprilTags/april_tags/zhash.h 
+			AprilTags/april_tags/zarray.h 
+			AprilTags/april_tags/workerpool.h 
+			AprilTags/april_tags/unionfind.h 
+			AprilTags/april_tags/timeprofile.h 
+			AprilTags/april_tags/tag36h11.h 
+			AprilTags/april_tags/tag36h10.h 
+			AprilTags/april_tags/matd.h 
+			AprilTags/april_tags/line_fit.h 
+			AprilTags/april_tags/image_u32.h 
+			AprilTags/april_tags/image_u8.h 
+			AprilTags/april_tags/image_f32.h 
+			AprilTags/april_tags/homography.h 
+			AprilTags/april_tags/gridder.h 
+			AprilTags/april_tags/graymodel.h 
+			AprilTags/april_tags/common.h 
+			AprilTags/AprilTags/Edge.h 
+			AprilTags/AprilTags/XYWeight.h 
+			AprilTags/AprilTags/UnionFindSimple.h 
+			AprilTags/AprilTags/TagFamily.h 
+			AprilTags/AprilTags/TagDetector.h 
+			AprilTags/AprilTags/TagDetection.h 
+			AprilTags/AprilTags/Tag36h11_other.h 
+			AprilTags/AprilTags/Tag36h11.h 
+			AprilTags/AprilTags/Tag36h9.h 
+			AprilTags/AprilTags/Tag25h9.h 
+			AprilTags/AprilTags/Tag25h7.h 
+			AprilTags/AprilTags/Tag16h5_other.h 
+			AprilTags/AprilTags/Tag16h5.h 
+			AprilTags/AprilTags/Segment.h 
+			AprilTags/AprilTags/Quad.h 
+			AprilTags/AprilTags/pch.h 
+			AprilTags/AprilTags/MathUtil.h 
+			AprilTags/AprilTags/Homography33.h 
+			AprilTags/AprilTags/Gridder.h 
+			AprilTags/AprilTags/GrayModel.h 
+			AprilTags/AprilTags/GLineSegment2D.h 
+			AprilTags/AprilTags/GLine2D.h 
+			AprilTags/AprilTags/Gaussian.h 
+			AprilTags/AprilTags/FloatImage.h 
+			algorithm/world.h 
+			algorithm/drawworld.h 
+		    	algorithm/IGraphichAlgorithmer.h 
+		    	algorithm/geometryutils.h 
+		    	algorithm/markerinfo.h 
+		    	algorithm/drawingutils.h 
+		    	algorithm/cameramanager.h 
+		    	algorithm/kalmanfilter.h 
+		    	algorithm/ardronedefines.h 
+		    	algorithm/weightedaveragefilter.h 
+		    	algorithm/pose3di.h 
+		    	algorithm/sharer.h
+    )
+
+set (UIS
+mainwindow.ui
+)
+
+
+
+
+
+
+include_directories(${Qt5Widgets_INCLUDE_DIRS}
+                        ${Qt5Core_INCLUDE_DIRS}
+                        ${Qt5Gui_INCLUDE_DIRS}
+                        ${Qt5Svg_INCLUDE_DIRS}
+                        ${OpenCV_INCLUDE_DIR}
+                        ${Ice_INCLUDE_DIR}
+                        ${INTERFACES_CPP_DIR}
+                        ${easyiceconfig_INCLUDE_DIRS}
+			)
+
+link_directories(${JDE_LIBS}
+                ${easyiceconfig_LIBRARY_DIRS})
+
+add_executable(cam_autoloc
+                    ${SOURCES}
+                    ${HEADERS}
+
+    )
+
+target_link_libraries(cam_autoloc
+                      ${Qt5Widgets_LIBRARIES}
+                      ${Qt5Core_LIBRARIES}
+                      ${Qt5Gui_LIBRARIES}
+                      ${Qt5Svg_LIBRARIES}
+                      ${CMAKE_THREAD_LIBS_INIT}
+                      ${OpenCV_LIBRARIES}
+                      ${OpenCVGUI_LIBRARIES}
+                      ${Ice_LIBRARIES}
+                      ${easyiceconfig_LIBRARIES}
+                      ${ZeroCIce_LIBRARIES}
+                      JderobotInterfaces
+                      jderobotutil
+                      qfi
+            	      ${GLOG_LIBRARIES}
+
+            )
+
+INSTALL (TARGETS cam_autoloc DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT cam_autoloc)
+    
+
+ENDIF()
+
