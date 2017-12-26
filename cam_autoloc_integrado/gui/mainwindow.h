@@ -2,14 +2,14 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "sensors.h"
-#include "cameramanager.h"
-#include "markerinfo.h"
-#include "kalmanfilter.h"
-#include "weightedaveragefilter.h"
+#include "sensors/sensors.h"
+#include "algorithm/cameramanager.h"
+#include "algorithm/markerinfo.h"
+#include "algorithm/kalmanfilter.h"
+#include "algorithm/weightedaveragefilter.h"
 #include "april_tags/apriltag.h"
-#include "world.h"
-#include "IGraphichAlgorithmer.h"
+#include "algorithm/world.h"
+#include "algorithm/IGraphichAlgorithmer.h"
 #include "ardronedefines.h"
 #include <QLineEdit>
 #include "sharer.h"

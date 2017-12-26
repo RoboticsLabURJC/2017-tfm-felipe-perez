@@ -1,16 +1,41 @@
-IF(QT5_COMPILE)
+project( cam_autoloc )
+cmake_minimum_required( VERSION 2.8.7 )
 
-    set(GUI_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/GUI)
-    set(CMAKE_AUTOMOC ON)
-    set(CMAKE_INCLUDE_CURRENT_DIR ON)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS} ${Qt5Core_EXECUTABLE_COMPILE_FLAGS} ${Qt5Gui_EXECUTABLE_COMPILE_FLAGS} ${Qt5Svg_EXECUTABLE_COMPILE_FLAGS}")
 
-set(SOURCES 		sensors/threadsensors.cpp
+
+set(GUI_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/gui)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+find_package(Qt5Widgets REQUIRED)
+find_package(PkgConfig)
+#Necesary modules
+pkg_check_modules(GTKMM gtkmm-2.4)  
+pkg_check_modules(GTKGLEXTMM gtkglextmm-1.2) 
+pkg_check_modules(LIBGLADEMM libglademm-2.4)
+pkg_check_modules(LIBGNOMECANVASMM libgnomecanvasmm-2.6)
+
+#pkg_check_modules(GLUT GL)
+find_package(OpenGL REQUIRED) 
+
+find_package(GLUT REQUIRED)
+
+
+
+
+
+
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}  ${Qt5Core_EXECUTABLE_COMPILE_FLAGS} ${Qt5Gui_EXECUTABLE_COMPILE_FLAGS} ${Qt5Svg_EXECUTABLE_COMPILE_FLAGS} -std=c++11 ")
+
+
+set(SOURCES_FILES 		sensors/threadsensors.cpp
 		        gui/threadgui.cpp
 		        gui/mainwindow.cpp
 		        src/main.cpp
 		        sensors/sensors.cpp
-			GUI/threadgui.cpp 
+			gui/threadgui.cpp 
 			sensors/sensors.cpp 
 			sensors/threadsensors.cpp 
 			AprilTags/april_tags/matd.c 
@@ -56,9 +81,9 @@ set(SOURCES 		sensors/threadsensors.cpp
 
   set(HEADERS 		sensors/threadsensors.h
 			sensors/sensors.h
-                	GUI/threadgui.h
-                	GUI/mainwindow.h
-			GUI/threadgui.h 
+                	gui/threadgui.h
+                	gui/mainwindow.h
+			gui/threadgui.h 
 
 			AprilTags/april_tags/apriltag.h 
 			AprilTags/april_tags/zhash.h 
@@ -115,16 +140,17 @@ set(SOURCES 		sensors/threadsensors.cpp
 		    	algorithm/sharer.h
     )
 
-set (UIS
-mainwindow.ui
-)
+#set (UIS
+#mainwindow.ui
+#)
 
 
 
 
 
 
-include_directories(${Qt5Widgets_INCLUDE_DIRS}
+include_directories(	${Qt5Widgets_INCLUDES}
+			${Qt5Widgets_INCLUDE_DIRS}
                         ${Qt5Core_INCLUDE_DIRS}
                         ${Qt5Gui_INCLUDE_DIRS}
                         ${Qt5Svg_INCLUDE_DIRS}
@@ -132,37 +158,83 @@ include_directories(${Qt5Widgets_INCLUDE_DIRS}
                         ${Ice_INCLUDE_DIR}
                         ${INTERFACES_CPP_DIR}
                         ${easyiceconfig_INCLUDE_DIRS}
-			)
+			${GTKMM_INCLUDE_DIRS} 
+			#${gtkmm_INCLUDE_DIRS}
+			${GTKGLEXTMM_INCLUDE_DIRS}
+    			#${gtkglextmm_INCLUDE_DIRS}
+			${easyiceconfig_INCLUDE_DIRS}
+			${LIBGLADEMM_INCLUDE_DIRS}
+			${LIBGNOMECANVASMM_INCLUDE_DIRS}
+			${GLUT_INCLUDE_DIRS}
+			${OPENGL_INCLUDE_DIRS} 
+			/usr/include/GL
+		        /opt/jderobot/include 
+			/opt/jderobot/include/jderobot	
+
+
+			${PROJECT_SOURCE_DIR}/AprilTags
+			${PROJECT_SOURCE_DIR}/AprilTags/AprilTags
+
+			${PROJECT_SOURCE_DIR}/algorithm	
+			${PROJECT_SOURCE_DIR}/sensors
+			${PROJECT_SOURCE_DIR}/gui					
+					
+)
+  
 
 link_directories(${JDE_LIBS}
-                ${easyiceconfig_LIBRARY_DIRS})
+                ${easyiceconfig_LIBRARY_DIRS}
+		${GTKMM_LIBRARY_DIRS}
+		${GTKGLEXTMM_LIBRARY_DIRS}
+		${LIBGLADEMM_LIBRARY_DIRS}
+	 	${LIBGNOMECANVASMM_LIBRARY_DIRS}
+
+)
+
+
+
+
+add_definitions(${Qt5Widgets_DEFINITIONS})
+ADD_DEFINITIONS(-DQT_NO_KEYWORDS)
 
 add_executable(cam_autoloc
-                    ${SOURCES}
+                    ${SOURCES_FILES}
                     ${HEADERS}
 
     )
 
 target_link_libraries(cam_autoloc
-                      ${Qt5Widgets_LIBRARIES}
-                      ${Qt5Core_LIBRARIES}
-                      ${Qt5Gui_LIBRARIES}
-                      ${Qt5Svg_LIBRARIES}
-                      ${CMAKE_THREAD_LIBS_INIT}
-                      ${OpenCV_LIBRARIES}
-                      ${OpenCVGUI_LIBRARIES}
-                      ${Ice_LIBRARIES}
-                      ${easyiceconfig_LIBRARIES}
-                      ${ZeroCIce_LIBRARIES}
-                      JderobotInterfaces
-                      jderobotutil
-                      qfi
-            	      ${GLOG_LIBRARIES}
+                      	${Qt5Widgets_LIBRARIES}
+                      	${Qt5Core_LIBRARIES}
+                      	${Qt5Gui_LIBRARIES}
+                      	${Qt5Svg_LIBRARIES}
+                      	${CMAKE_THREAD_LIBS_INIT}
+		      	${gtkglextmm_LIBRARIES}
+                      	${OpenCV_LIBRARIES}
+                      	${OpenCVGUI_LIBRARIES}
+                      	${Ice_LIBRARIES}
+                      	${easyiceconfig_LIBRARIES}
+                      	${ZeroCIce_LIBRARIES}
+		      	${GTKMM_LIBRARIES}
+		      	${GTKGLEXTMM_LIBRARIES} 
+    		      	${LIBGLADEMM_LIBRARIES}
+		      	${LIBGNOMECANVASMM_LIBRARIES}
+			${OPENGL_LIBRARIES}
+		      	${GLUT_LIBRARIES}	
+    		      	#${gtkmm_LIBRARIES}
+                      	JderobotInterfaces
+                      	jderobotutil
+                      	qfi
+		      	parallelIce
+	              	colorspacesmm
+		      	xmlParser
+	              	progeo
+            	      	${GLOG_LIBRARIES}
+			pthread
+)
 
-            )
-
-INSTALL (TARGETS cam_autoloc DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT cam_autoloc)
+#INSTALL (TARGETS cam_autoloc DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT cam_autoloc)
     
 
-ENDIF()
+
 
