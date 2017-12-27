@@ -20,6 +20,10 @@ pkg_check_modules(LIBGNOMECANVASMM libgnomecanvasmm-2.6)
 find_package(OpenGL REQUIRED) 
 
 find_package(GLUT REQUIRED)
+find_package(OpenCV)
+find_package(Ice)
+
+
 
 
 
@@ -212,9 +216,10 @@ target_link_libraries(cam_autoloc
 		      	${gtkglextmm_LIBRARIES}
                       	${OpenCV_LIBRARIES}
                       	${OpenCVGUI_LIBRARIES}
-                      	${Ice_LIBRARIES}
+                      	#${Ice_LIBRARY}
                       	${easyiceconfig_LIBRARIES}
                       	${ZeroCIce_LIBRARIES}
+
 		      	${GTKMM_LIBRARIES}
 		      	${GTKGLEXTMM_LIBRARIES} 
     		      	${LIBGLADEMM_LIBRARIES}
@@ -230,7 +235,7 @@ target_link_libraries(cam_autoloc
 		      	xmlParser
 	              	progeo
             	      	${GLOG_LIBRARIES}
-			pthread
+			#pthread
 )
 
 #INSTALL (TARGETS cam_autoloc DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT cam_autoloc)

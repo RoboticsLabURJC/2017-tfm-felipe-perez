@@ -91,6 +91,8 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../algorithm"
   "../sensors"
   "../gui"
+  "/opt/ros/kinetic/include/opencv-3.2.0-dev"
+  "/opt/ros/kinetic/include/opencv-3.2.0-dev/opencv"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/AprilTags/AprilTagsSrc/Edge.cc" "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/build/CMakeFiles/cam_autoloc.dir/AprilTags/AprilTagsSrc/Edge.cc.o"
@@ -194,6 +196,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../algorithm"
   "../sensors"
   "../gui"
+  "/opt/ros/kinetic/include/opencv-3.2.0-dev"
+  "/opt/ros/kinetic/include/opencv-3.2.0-dev/opencv"
   )
 
 # Targets to which this target links.
