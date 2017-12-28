@@ -7,6 +7,8 @@
 #endif
 #include "drawingutils.h"
 #include <fstream>
+#include <iostream>
+#include "opencv2/opencv.hpp"
 
 //#define MARKER_SIZE 0.17
 //#define HALF_MARKER_SIZE 0.085
@@ -26,6 +28,9 @@ CameraManager::CameraManager(/*int rows, int columns, */const std::string& calib
     // //////m_CameraParameters.readFromXMLFile(calibFile);
     //m_CameraParameters.resize(cv::Size(columns, rows));
 
+   
+
+	
     //Cámara real
     m_RealCamera.position.X = 0.0;
     m_RealCamera.position.Y = 0.0;
@@ -66,6 +71,9 @@ CameraManager::CameraManager(/*int rows, int columns, */const std::string& calib
 
 
     //Matriz de parámetros intrínsecos
+    ifstream file(calibFile);
+    if (!file)	//no utilizamos el archivo de calibracion
+    {
     double cam[] = { 187.336, 0, 160,
                       0, 187.336, 120,
                       0, 0, 1};
@@ -81,7 +89,7 @@ CameraManager::CameraManager(/*int rows, int columns, */const std::string& calib
     m_K(2,0) = 0;
     m_K(2,1) = 0;
     m_K(2,2) = 1;
-
+    
 
     /*
     //Cámara real
@@ -159,6 +167,33 @@ CameraManager::CameraManager(/*int rows, int columns, */const std::string& calib
     double dis[] = {0.0, 0.0, 0.0, 0.0, 0.0};
     cv::Mat distCoeffs(5, 1 ,CV_64FC1, dis);
     distCoeffs.copyTo(m_DistortionCoeffs);
+    }
+    else //usamos archivo calibracion
+
+    {
+
+    cv::FileStorage fs(calibFile, cv::FileStorage::READ);
+    cv::Mat cameraMatrix, distCoeffs;
+    fs["camera_matrix"] >> cameraMatrix;
+    fs["distortion_coefficients"] >> distCoeffs;
+    cameraMatrix.copyTo(m_CameraMatrix);
+ 	
+    m_K(0,0) = cameraMatrix.at<double>(0,0);
+    m_K(0,1) = cameraMatrix.at<double>(0,1);
+    m_K(0,2) = cameraMatrix.at<double>(0,2);
+    m_K(1,0) = cameraMatrix.at<double>(1,0);
+    m_K(1,1) = cameraMatrix.at<double>(1,1);
+    m_K(1,2) = cameraMatrix.at<double>(1,2);
+    m_K(2,0) = cameraMatrix.at<double>(2,0);
+    m_K(2,1) = cameraMatrix.at<double>(2,1);
+    m_K(2,2) = cameraMatrix.at<double>(2,2);
+ 
+    distCoeffs.copyTo(distCoeffs);
+     
+    
+    }
+
+    
 
     //Foco de atención "base"
     m_BaseFoaX = foaX;

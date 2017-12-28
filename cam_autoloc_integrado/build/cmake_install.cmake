@@ -32,6 +32,22 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   set(CMAKE_INSTALL_SO_NO_EXE "1")
 endif()
 
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+   "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/build/ardrone_slam.glade;/home/f/URJC/URJC/TFM/cam_autoloc_integrado/build/introrob.glade;/home/f/URJC/URJC/TFM/cam_autoloc_integrado/build/markers.txt")
+  if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  endif()
+  if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  endif()
+file(INSTALL DESTINATION "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/build" TYPE FILE FILES
+    "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/resources/ardrone_slam.glade"
+    "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/resources/introrob.glade"
+    "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/resources/markers.txt"
+    )
+endif()
+
 if(CMAKE_INSTALL_COMPONENT)
   set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
 else()

@@ -583,6 +583,10 @@ drawingutils.h
 /home/f/URJC/URJC/TFM/cam_autoloc_integrado/algorithm/drawingutils.h
 fstream
 -
+iostream
+-
+opencv2/opencv.hpp
+/home/f/URJC/URJC/TFM/cam_autoloc_integrado/algorithm/opencv2/opencv.hpp
 
 /home/f/URJC/URJC/TFM/cam_autoloc_integrado/algorithm/cameramanager.h
 geometryutils.h

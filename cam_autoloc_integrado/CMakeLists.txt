@@ -296,7 +296,13 @@ target_link_libraries(cam_autoloc
 			ICE
 )
 
-#INSTALL (TARGETS cam_autoloc DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT cam_autoloc)
+INSTALL (FILES 
+	${CMAKE_CURRENT_SOURCE_DIR}/resources/ardrone_slam.glade
+	${CMAKE_CURRENT_SOURCE_DIR}/resources/introrob.glade
+	${CMAKE_CURRENT_SOURCE_DIR}/resources/markers.txt
+	DESTINATION
+	${PROJECT_BINARY_DIR} 
+	 )
     
 
 
