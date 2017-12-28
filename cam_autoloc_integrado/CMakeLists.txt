@@ -7,6 +7,7 @@ set(GUI_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/gui)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(QMAKE_CXXFLAGS "-std=c++11")
 
 find_package(Qt5Widgets REQUIRED)
 find_package(PkgConfig)
@@ -22,6 +23,7 @@ find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 find_package(OpenCV)
 find_package(Ice)
+#find_package(JDE)
 
 
 
@@ -171,6 +173,7 @@ include_directories(	${Qt5Widgets_INCLUDES}
 			${LIBGNOMECANVASMM_INCLUDE_DIRS}
 			${GLUT_INCLUDE_DIRS}
 			${OPENGL_INCLUDE_DIRS} 
+			${JDE_INCLUDE_DIRS}
 			/usr/include/GL
 		        /opt/jderobot/include 
 			/opt/jderobot/include/jderobot	
@@ -207,6 +210,56 @@ add_executable(cam_autoloc
 
     )
 
+add_library(JderobotInterfaces SHARED IMPORTED)
+set_property(TARGET JderobotInterfaces PROPERTY IMPORTED_LOCATION
+			"/opt/jderobot/lib/libJderobotInterfaces.so")
+
+
+add_library(jderobotutil SHARED IMPORTED)
+set_property(TARGET jderobotutil PROPERTY IMPORTED_LOCATION
+			"/opt/jderobot/lib/libjderobotutil.so")
+
+add_library(parallelIce SHARED IMPORTED)
+set_property(TARGET parallelIce PROPERTY IMPORTED_LOCATION
+			"/opt/jderobot/lib/libparallelIce.so")
+
+add_library(colorspacesmm SHARED IMPORTED)
+set_property(TARGET colorspacesmm PROPERTY IMPORTED_LOCATION
+			"/opt/jderobot/lib/libcolorspacesmm.so")
+
+add_library(colorspaces SHARED IMPORTED)
+set_property(TARGET colorspaces PROPERTY IMPORTED_LOCATION
+			"/opt/jderobot/lib/libcolorspaces.a")
+
+add_library(xmlParser SHARED IMPORTED)
+set_property(TARGET xmlParser PROPERTY IMPORTED_LOCATION
+			"/opt/jderobot/lib/libxmlParser.so")
+
+
+add_library(progeo SHARED IMPORTED)
+set_property(TARGET progeo PROPERTY IMPORTED_LOCATION
+			"/opt/jderobot/lib/libprogeo.so")
+
+
+
+###ICE
+add_library(Ice SHARED IMPORTED)
+set_property(TARGET Ice PROPERTY IMPORTED_LOCATION
+			"/usr/lib/x86_64-linux-gnu/libIce++11.so.36")
+
+add_library(ICE SHARED IMPORTED)
+set_property(TARGET ICE PROPERTY IMPORTED_LOCATION
+			"/usr/lib/x86_64-linux-gnu/libICE.so")
+
+add_library(IceUtil SHARED IMPORTED)
+set_property(TARGET IceUtil PROPERTY IMPORTED_LOCATION
+			"/usr/lib/x86_64-linux-gnu/libIceUtil++11.so.36")
+
+##aruco
+add_library(Aruco SHARED IMPORTED)
+set_property(TARGET Aruco PROPERTY IMPORTED_LOCATION
+			"/usr/local/lib//libaruco.so")
+
 target_link_libraries(cam_autoloc
                       	${Qt5Widgets_LIBRARIES}
                       	${Qt5Core_LIBRARIES}
@@ -216,26 +269,31 @@ target_link_libraries(cam_autoloc
 		      	${gtkglextmm_LIBRARIES}
                       	${OpenCV_LIBRARIES}
                       	${OpenCVGUI_LIBRARIES}
-                      	#${Ice_LIBRARY}
+                      	${Ice_LIBRARY}
                       	${easyiceconfig_LIBRARIES}
                       	${ZeroCIce_LIBRARIES}
-
 		      	${GTKMM_LIBRARIES}
 		      	${GTKGLEXTMM_LIBRARIES} 
     		      	${LIBGLADEMM_LIBRARIES}
 		      	${LIBGNOMECANVASMM_LIBRARIES}
 			${OPENGL_LIBRARIES}
-		      	${GLUT_LIBRARIES}	
+		      	${GLUT_LIBRARIES}
+			#Jde	
     		      	#${gtkmm_LIBRARIES}
                       	JderobotInterfaces
                       	jderobotutil
-                      	qfi
+                      	#qfi
 		      	parallelIce
 	              	colorspacesmm
+			colorspaces
 		      	xmlParser
 	              	progeo
             	      	${GLOG_LIBRARIES}
-			#pthread
+			pthread
+			Ice
+			IceUtil
+			Aruco
+			ICE
 )
 
 #INSTALL (TARGETS cam_autoloc DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT cam_autoloc)

@@ -1265,6 +1265,17 @@ cam_autoloc: /usr/lib/x86_64-linux-gnu/libGL.so
 cam_autoloc: /usr/lib/x86_64-linux-gnu/libglut.so
 cam_autoloc: /usr/lib/x86_64-linux-gnu/libXmu.so
 cam_autoloc: /usr/lib/x86_64-linux-gnu/libXi.so
+cam_autoloc: /opt/jderobot/lib/libJderobotInterfaces.so
+cam_autoloc: /opt/jderobot/lib/libjderobotutil.so
+cam_autoloc: /opt/jderobot/lib/libparallelIce.so
+cam_autoloc: /opt/jderobot/lib/libcolorspacesmm.so
+cam_autoloc: /opt/jderobot/lib/libcolorspaces.a
+cam_autoloc: /opt/jderobot/lib/libxmlParser.so
+cam_autoloc: /opt/jderobot/lib/libprogeo.so
+cam_autoloc: /usr/lib/x86_64-linux-gnu/libIce++11.so.36
+cam_autoloc: /usr/lib/x86_64-linux-gnu/libIceUtil++11.so.36
+cam_autoloc: /usr/local/lib/libaruco.so
+cam_autoloc: /usr/lib/x86_64-linux-gnu/libICE.so
 cam_autoloc: /opt/ros/kinetic/lib/libopencv_shape3.so.3.2.0
 cam_autoloc: /opt/ros/kinetic/lib/libopencv_video3.so.3.2.0
 cam_autoloc: /opt/ros/kinetic/lib/libopencv_viz3.so.3.2.0
