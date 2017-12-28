@@ -306,9 +306,6 @@ Ice_SLICE_DIR:PATH=/usr/share/slice
 //Ice transformdb executable
 Ice_TRANSFORMDB_EXECUTABLE:FILEPATH=/usr/bin/transformdb
 
-//The directory containing a CMake configuration file for JDE.
-JDE_DIR:PATH=JDE_DIR-NOTFOUND
-
 //Path to a file.
 OPENGL_INCLUDE_DIR:PATH=/usr/include
 

@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/build/ardrone_slam.glade;/home/f/URJC/URJC/TFM/cam_autoloc_integrado/build/introrob.glade;/home/f/URJC/URJC/TFM/cam_autoloc_integrado/build/markers.txt")
+   "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/build/ardrone_slam.glade;/home/f/URJC/URJC/TFM/cam_autoloc_integrado/build/introrob.glade;/home/f/URJC/URJC/TFM/cam_autoloc_integrado/build/markers.txt;/home/f/URJC/URJC/TFM/cam_autoloc_integrado/build/configuration.cfg")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
@@ -45,6 +45,7 @@ file(INSTALL DESTINATION "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/build" TYP
     "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/resources/ardrone_slam.glade"
     "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/resources/introrob.glade"
     "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/resources/markers.txt"
+    "/home/f/URJC/URJC/TFM/cam_autoloc_integrado/resources/configuration.cfg"
     )
 endif()
 

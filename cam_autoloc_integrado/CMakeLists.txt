@@ -9,34 +9,26 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(QMAKE_CXXFLAGS "-std=c++11")
 
+#required modules
 find_package(Qt5Widgets REQUIRED)
 find_package(PkgConfig)
-#Necesary modules
+
+#Version
 pkg_check_modules(GTKMM gtkmm-2.4)  
 pkg_check_modules(GTKGLEXTMM gtkglextmm-1.2) 
 pkg_check_modules(LIBGLADEMM libglademm-2.4)
 pkg_check_modules(LIBGNOMECANVASMM libgnomecanvasmm-2.6)
 
-#pkg_check_modules(GLUT GL)
 find_package(OpenGL REQUIRED) 
-
 find_package(GLUT REQUIRED)
 find_package(OpenCV)
 find_package(Ice)
-#find_package(JDE)
-
-
-
-
-
-
-
 
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}  ${Qt5Core_EXECUTABLE_COMPILE_FLAGS} ${Qt5Gui_EXECUTABLE_COMPILE_FLAGS} ${Qt5Svg_EXECUTABLE_COMPILE_FLAGS} -std=c++11 ")
 
 
-set(SOURCES_FILES 		sensors/threadsensors.cpp
+set(SOURCES_FILES 	sensors/threadsensors.cpp
 		        gui/threadgui.cpp
 		        gui/mainwindow.cpp
 		        src/main.cpp
@@ -85,12 +77,11 @@ set(SOURCES_FILES 		sensors/threadsensors.cpp
     			algorithm/sharer.cpp
 	)
 
-  set(HEADERS 		sensors/threadsensors.h
+set(HEADERS 		sensors/threadsensors.h
 			sensors/sensors.h
                 	gui/threadgui.h
                 	gui/mainwindow.h
-			gui/threadgui.h 
-
+			gui/threadgui.h
 			AprilTags/april_tags/apriltag.h 
 			AprilTags/april_tags/zhash.h 
 			AprilTags/april_tags/zarray.h 
@@ -146,14 +137,6 @@ set(SOURCES_FILES 		sensors/threadsensors.cpp
 		    	algorithm/sharer.h
     )
 
-#set (UIS
-#mainwindow.ui
-#)
-
-
-
-
-
 
 include_directories(	${Qt5Widgets_INCLUDES}
 			${Qt5Widgets_INCLUDE_DIRS}
@@ -165,23 +148,24 @@ include_directories(	${Qt5Widgets_INCLUDES}
                         ${INTERFACES_CPP_DIR}
                         ${easyiceconfig_INCLUDE_DIRS}
 			${GTKMM_INCLUDE_DIRS} 
-			#${gtkmm_INCLUDE_DIRS}
 			${GTKGLEXTMM_INCLUDE_DIRS}
-    			#${gtkglextmm_INCLUDE_DIRS}
 			${easyiceconfig_INCLUDE_DIRS}
 			${LIBGLADEMM_INCLUDE_DIRS}
 			${LIBGNOMECANVASMM_INCLUDE_DIRS}
 			${GLUT_INCLUDE_DIRS}
 			${OPENGL_INCLUDE_DIRS} 
 			${JDE_INCLUDE_DIRS}
+
+			#GLUT_DIRECTORY
 			/usr/include/GL
+
+			#JDEROBOT_DIRECTORY
 		        /opt/jderobot/include 
 			/opt/jderobot/include/jderobot	
-
-
+			
+			#PROJECT_DIRECTORY
 			${PROJECT_SOURCE_DIR}/AprilTags
 			${PROJECT_SOURCE_DIR}/AprilTags/AprilTags
-
 			${PROJECT_SOURCE_DIR}/algorithm	
 			${PROJECT_SOURCE_DIR}/sensors
 			${PROJECT_SOURCE_DIR}/gui					
@@ -206,10 +190,9 @@ ADD_DEFINITIONS(-DQT_NO_KEYWORDS)
 
 add_executable(cam_autoloc
                     ${SOURCES_FILES}
-                    ${HEADERS}
+                    ${HEADERS})
 
-    )
-
+# JdeRobot
 add_library(JderobotInterfaces SHARED IMPORTED)
 set_property(TARGET JderobotInterfaces PROPERTY IMPORTED_LOCATION
 			"/opt/jderobot/lib/libJderobotInterfaces.so")
@@ -242,23 +225,20 @@ set_property(TARGET progeo PROPERTY IMPORTED_LOCATION
 
 
 
-###ICE
+### ICE
 add_library(Ice SHARED IMPORTED)
 set_property(TARGET Ice PROPERTY IMPORTED_LOCATION
 			"/usr/lib/x86_64-linux-gnu/libIce++11.so.36")
 
-add_library(ICE SHARED IMPORTED)
-set_property(TARGET ICE PROPERTY IMPORTED_LOCATION
-			"/usr/lib/x86_64-linux-gnu/libICE.so")
 
 add_library(IceUtil SHARED IMPORTED)
 set_property(TARGET IceUtil PROPERTY IMPORTED_LOCATION
 			"/usr/lib/x86_64-linux-gnu/libIceUtil++11.so.36")
 
-##aruco
+## aruco
 add_library(Aruco SHARED IMPORTED)
 set_property(TARGET Aruco PROPERTY IMPORTED_LOCATION
-			"/usr/local/lib//libaruco.so")
+			"/usr/local/lib/libaruco.so")
 
 target_link_libraries(cam_autoloc
                       	${Qt5Widgets_LIBRARIES}
@@ -278,17 +258,14 @@ target_link_libraries(cam_autoloc
 		      	${LIBGNOMECANVASMM_LIBRARIES}
 			${OPENGL_LIBRARIES}
 		      	${GLUT_LIBRARIES}
-			#Jde	
-    		      	#${gtkmm_LIBRARIES}
+            	      	${GLOG_LIBRARIES}
                       	JderobotInterfaces
                       	jderobotutil
-                      	#qfi
 		      	parallelIce
 	              	colorspacesmm
 			colorspaces
 		      	xmlParser
 	              	progeo
-            	      	${GLOG_LIBRARIES}
 			pthread
 			Ice
 			IceUtil
@@ -300,6 +277,7 @@ INSTALL (FILES
 	${CMAKE_CURRENT_SOURCE_DIR}/resources/ardrone_slam.glade
 	${CMAKE_CURRENT_SOURCE_DIR}/resources/introrob.glade
 	${CMAKE_CURRENT_SOURCE_DIR}/resources/markers.txt
+	${CMAKE_CURRENT_SOURCE_DIR}/resources/configuration.cfg
 	DESTINATION
 	${PROJECT_BINARY_DIR} 
 	 )

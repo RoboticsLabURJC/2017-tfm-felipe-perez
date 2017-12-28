@@ -1275,7 +1275,6 @@ cam_autoloc: /opt/jderobot/lib/libprogeo.so
 cam_autoloc: /usr/lib/x86_64-linux-gnu/libIce++11.so.36
 cam_autoloc: /usr/lib/x86_64-linux-gnu/libIceUtil++11.so.36
 cam_autoloc: /usr/local/lib/libaruco.so
-cam_autoloc: /usr/lib/x86_64-linux-gnu/libICE.so
 cam_autoloc: /opt/ros/kinetic/lib/libopencv_shape3.so.3.2.0
 cam_autoloc: /opt/ros/kinetic/lib/libopencv_video3.so.3.2.0
 cam_autoloc: /opt/ros/kinetic/lib/libopencv_viz3.so.3.2.0
