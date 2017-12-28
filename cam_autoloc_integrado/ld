@@ -1,7 +1,0 @@
-sudo ln -s /opt/jderobot/lib/libJderobotInterfaces.so /usr/lib/libJderobotInterfaces.so
-sudo ln -s /opt/jderobot/lib/libjderobotutil.so /usr/lib/libjderobotutil.so
-sudo ln -s /opt/jderobot/lib/libparallelIce.so /usr/lib/libparallelIce.so
-sudo ln -s /opt/jderobot/lib/libxmlParser.so /usr/lib/libxmlParser.so
-
-
-sudo ln -s 
