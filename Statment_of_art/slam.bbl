@@ -1,0 +1,95 @@
+\begin{thebibliography}{13}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Davison et~al.(2007)Davison, Reid, Molton, and
+  Stasse]{Davison07monoslam:real-time}
+Andrew~J. Davison, Ian~D. Reid, Nicholas~D. Molton, and Olivier Stasse.
+\newblock Monoslam: Real-time single camera slam.
+\newblock \emph{IEEE Trans. Pattern Analysis and Machine Intelligence},
+  29:\penalty0 2007, 2007.
+
+\bibitem[Fischler and Bolles(1981)]{Fischler}
+Martin~A. Fischler and Robert~C. Bolles.
+\newblock Random sample consensus: A paradigm for model fitting with
+  applications to image analysis and automated cartography.
+\newblock \emph{Commun. ACM}, 24\penalty0 (6):\penalty0 381--395, June 1981.
+\newblock ISSN 0001-0782.
+\newblock \doi{10.1145/358669.358692}.
+\newblock URL \url{http://doi.acm.org/10.1145/358669.358692}.
+
+\bibitem[Gálvez-López and Tardos(2012)]{bolsa}
+Dorian Gálvez-López and Juan~D. Tardos.
+\newblock Bags of binary words for fast place recognition in image sequences.
+\newblock 2012.
+
+\bibitem[Hesch and Roumeliotis(2011)]{cincopuntos}
+{Joel A.} Hesch and {Stergios I.} Roumeliotis.
+\newblock \emph{A Direct Least-Squares (DLS) method for PnP}, pages 383--390.
+\newblock 2011.
+\newblock ISBN 9781457711015.
+
+\bibitem[Karsten Ottenberg Bert M.~Haralick and Nölle(1994)]{trespuntos}
+Chung-Nan~Lee Karsten Ottenberg Bert M.~Haralick and Michael Nölle.
+\newblock Review and analysis of solutions of the three point perspective pose
+  estimation problem.
+\newblock International journal of computer vision, 1994.
+
+\bibitem[Kelley(1999)]{Gauss-Newton}
+Carl~T. Kelley.
+\newblock Iterative methods for optimization.
+\newblock 1999.
+
+\bibitem[Klein and Murray(2007)]{klein07parallel}
+Georg Klein and David Murray.
+\newblock Parallel tracking and mapping for small {AR} workspaces.
+\newblock In \emph{Proc. Sixth {IEEE} and {ACM} International Symposium on
+  Mixed and Augmented Reality {(ISMAR'07)}}, Nara, Japan, November 2007.
+
+\bibitem[leg Naroditsky David~Nistér and Bergen(2004)]{odometriavisual}
+leg Naroditsky David~Nistér and James Bergen.
+\newblock Visual odometry.
+\newblock Computer Vision and Patter Recognition, 2004.
+
+\bibitem[Mur-Artal et~al.(2015)Mur-Artal, Montiel, and Tardos]{ORB-SLAM}
+R.~Mur-Artal, J.M.M. Montiel, and J.D. Tardos.
+\newblock {ORB-SLAM: A Versatile and Accurate Monocular SLAM System}.
+\newblock 2015.
+
+\bibitem[Newcombe et~al.(2011)Newcombe, Lovegrove, and Davison]{DTAM}
+Richard~A. Newcombe, Steven~J. Lovegrove, and Andrew~J. Davison.
+\newblock Dtam: Dense tracking and mapping in real-time.
+\newblock In \emph{Proceedings of the 2011 International Conference on Computer
+  Vision}, ICCV '11, pages 2320--2327, Washington, DC, USA, 2011. IEEE Computer
+  Society.
+\newblock ISBN 978-1-4577-1101-5.
+\newblock \doi{10.1109/ICCV.2011.6126513}.
+
+\bibitem[Olivier Leboulleux Radu~Horaud and Lacolle(1989)]{cuatropuntos}
+Bernard~Conio Olivier Leboulleux Radu~Horaud and Bernard Lacolle.
+\newblock An analytic solution for the perspective 4-point problem.
+\newblock Computer Vision, Graphics, and Image Processing, 1989.
+
+\bibitem[Rosten and Drummond(2006)]{Rosten:2006}
+Edward Rosten and Tom Drummond.
+\newblock Machine learning for high-speed corner detection.
+\newblock In \emph{Proceedings of the 9th European Conference on Computer
+  Vision - Volume Part I}, ECCV'06, pages 430--443, Berlin, Heidelberg, 2006.
+  Springer-Verlag.
+\newblock ISBN 3-540-33832-2, 978-3-540-33832-1.
+\newblock \doi{10.1007/11744023_34}.
+
+\bibitem[Rublee et~al.(2011)Rublee, Rabaud, Konolige, and
+  Bradski]{ORB-descriptor}
+Ethan Rublee, Vincent Rabaud, Kurt Konolige, and Gary Bradski.
+\newblock Orb: An efficient alternative to sift or surf.
+\newblock In \emph{Proceedings of the 2011 International Conference on Computer
+  Vision}, ICCV '11, pages 2564--2571, Washington, DC, USA, 2011. IEEE Computer
+  Society.
+\newblock ISBN 978-1-4577-1101-5.
+\newblock \doi{10.1109/ICCV.2011.6126544}.
+
+\end{thebibliography}

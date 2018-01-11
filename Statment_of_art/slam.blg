@@ -1,0 +1,64 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: slam.aux
+The style file: plainnat.bst
+Database file #1: egbib.bib
+I was expecting a `,' or a `}'---line 72 of file egbib.bib
+ : 
+ : journal = {SIAM}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 114 of file egbib.bib
+ : 
+ : pages = {1158-1197}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--empty booktitle in bolsa
+Warning--empty publisher in cincopuntos
+Warning--empty booktitle in trespuntos
+Warning--empty booktitle in Gauss-Newton
+Warning--empty booktitle in odometriavisual
+Warning--empty journal in ORB-SLAM
+Warning--empty booktitle in cuatropuntos
+You've used 13 entries,
+            2773 wiz_defined-function locations,
+            683 strings with 7314 characters,
+and the built_in function-call counts, 6364 in all, are:
+= -- 596
+> -- 316
+< -- 13
++ -- 106
+- -- 93
+* -- 456
+:= -- 938
+add.period$ -- 52
+call.type$ -- 13
+change.case$ -- 69
+chr.to.int$ -- 13
+cite$ -- 33
+duplicate$ -- 326
+empty$ -- 546
+format.name$ -- 122
+if$ -- 1391
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 14
+newline$ -- 83
+num.names$ -- 52
+pop$ -- 162
+preamble$ -- 1
+purify$ -- 57
+quote$ -- 0
+skip$ -- 251
+stack$ -- 0
+substring$ -- 207
+swap$ -- 54
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 138
+warning$ -- 7
+while$ -- 54
+width$ -- 0
+write$ -- 195
+(There were 2 error messages)
