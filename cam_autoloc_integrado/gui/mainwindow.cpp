@@ -26,6 +26,19 @@ MainWindow::MainWindow(QWidget *parent) :
     m_TemporalFusionFilter = TEMPORAL_FUSION_FILTER_NONE;
 
     //m_RT = GeometryUtils::BuildRTMat(0, -0.15, 0, 0, 0, 0);
+	
+	if (m_option==1) //ICE
+	{
+		std::printf("ICE\n");
+	}
+
+	//if (m_option==2)
+	//{
+		std::printf("ROS\n");
+		std::cout<<"initUI: "<<m_topic<<std::endl;
+		
+	//}
+
 
     sharer = Sharer::getInstance();
 
@@ -109,7 +122,10 @@ MainWindow::updateThreadGUI()
         p = m_WeightedAverageFilter->GetFilteredPose(m_CameraManager->GetEstimatedPose());
                 m_CameraManager->SetEstimatedPose(p.GetX(), p.GetY(), p.GetZ(), p.GetH(), p.GetRoll(), p.GetPitch(), p.GetYaw());
                 printf("--- %03f %03f %03f ---\n", p.GetX(), p.GetY(), p.GetZ());
+		
 
+
+		myPublisher.publishPose(p.GetX(),p.GetY(),p.GetZ(),p.GetRoll(),p.GetPitch(),p.GetYaw());
 
         sharer->setPose3D(m_CameraManager->GetEstimatedPose(), 1);
     }
@@ -150,6 +166,20 @@ void MainWindow::setSensors(Sensors* sensors)
 {
     m_Sensors = sensors;
 }
+
+void MainWindow::setOption(int option)
+{
+	m_option = option;
+
+}
+
+void MainWindow::setTopic(std::string topic)
+{	
+	m_topic = topic;
+	std::cout<<"MainWindow::setTopic: "<<m_topic<<std::endl;
+	myPublisher.setTopic(m_topic); 
+}
+
 
 void MainWindow::updateGUI_recieved()
 {

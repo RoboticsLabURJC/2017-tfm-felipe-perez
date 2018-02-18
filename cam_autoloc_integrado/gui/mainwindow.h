@@ -13,6 +13,7 @@
 #include "ardronedefines.h"
 #include <QLineEdit>
 #include "sharer.h"
+#include "rosPublisher.h"
 
 
 namespace Ui {
@@ -37,6 +38,8 @@ private:
     QTimer* m_Timer;
     Sensors* m_Sensors;
     Eigen::Matrix4d m_RT;
+	int m_option; //ICE or ROS
+	std::string m_topic;
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -45,6 +48,8 @@ public:
     ~MainWindow();
 
     void setSensors(Sensors* sensors);
+	void setOption(int option);
+	void setTopic(std::string topic);
     void updateThreadGUI();
 
     virtual void RunGraphicAlgorithm();
@@ -67,6 +72,7 @@ private Q_SLOTS:
 private:
     Sharer *sharer;
     Ui::MainWindow *ui;
+	rosPublisher myPublisher;
 
 private:
     void RegisterError();

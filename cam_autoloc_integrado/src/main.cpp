@@ -14,24 +14,44 @@
 #include <gdkglmm.h>
 #include <iostream>
 
+#include "jderobot/config/config.h"
+#include "jderobot/comm/communicator.hpp"
+#include <ros/ros.h>
+
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
     Ice::CommunicatorPtr ic;
+	ros::init(argc, argv, "slam_markers");
     try
-    {
-        ic = Ice::initialize(argc, argv);
+    {	
+		//-----------------Comm----------------//
+		Config::Properties props = Config::load(argc, argv);	
+        Comm::Communicator* jdrc = new Comm::Communicator(props);
 
-        Sensors* sensors = new Sensors(ic);
-        threadGUI* gui = new threadGUI(sensors);
+		int serverPose=props.asInt("CamAutoloc.Pose3D.Server");
+		std::string topic = props.asString("CamAutoloc.Pose3D.Topic");
+		std::cout<<"Topic: "<<topic<<std::endl;
+		
+
+		
+
+
+        Sensors* sensors = new Sensors(jdrc);
+        threadGUI* gui = new threadGUI(sensors,serverPose,topic);
         ThreadSensors* threadSensors = new ThreadSensors(sensors);
 
         threadSensors->start();
         gui->start();
-        Ice::PropertiesPtr prop = ic->getProperties();
-        std::string endpoint = prop->getProperty("CamAutoloc.Pose3D.Proxy");
+		
+		// Publish Pose3d with ICE
+		if (serverPose==1)
+		{
+		ic = Ice::initialize(argc, argv);
+		
+        std::string endpoint = props.asString("CamAutoloc.Pose3D.Proxy");
 
 
         Ice::ObjectAdapterPtr adapter = ic->createObjectAdapterWithEndpoints("Pose3D", endpoint);
@@ -39,6 +59,7 @@ int main(int argc, char *argv[])
         adapter->add(object, ic->stringToIdentity("Pose3D"));
         adapter->activate();
         //ic->waitForShutdown();
+		}
     }
     catch(const Ice::Exception& ex)
     {

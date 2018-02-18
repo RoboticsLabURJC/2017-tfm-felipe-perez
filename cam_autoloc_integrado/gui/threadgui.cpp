@@ -1,7 +1,7 @@
 #include "threadgui.h"
 #include <QDesktopWidget>
 
-threadGUI::threadGUI(Sensors* sensors)
+threadGUI::threadGUI(Sensors* sensors,int option, std::string topic)
 {
     gui = new MainWindow();
     //Centramos la ventana en la pantalla
@@ -15,6 +15,9 @@ threadGUI::threadGUI(Sensors* sensors)
 
     gui->setGeometry((screenWidth/2)-(width/2),(screenHeight/2)-(height/2),width,height);
     gui->setSensors(sensors);
+	gui->setOption(option);
+	std::cout<<"threadgui: "<<topic<<std::endl;
+	gui->setTopic(topic);
     gui->show();
 
 }

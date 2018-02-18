@@ -2,6 +2,16 @@
 #include <iostream>
 
 
+Sensors::Sensors(Comm::Communicator* jdrc)
+{
+	this-> jdrc = jdrc;
+	this-> camera = Comm::getCameraClient(jdrc,"CamAutoloc.Camera");
+
+
+}
+
+
+/*
 Sensors::Sensors(Ice::CommunicatorPtr ic)
 {
     this-> ic = ic;
@@ -10,6 +20,7 @@ Sensors::Sensors(Ice::CommunicatorPtr ic)
     //Camera
     Ice::ObjectPrx base = ic->propertyToProxy("CamAutoloc.Camera.Proxy");
     //Ice::ObjectPrx base = ic->stringToProxy("cameraA:default -h localhost -p 9999");
+
 
     std::cout<<"base: "<<base<<"\n";
     if (0==base)
@@ -38,7 +49,7 @@ Sensors::Sensors(Ice::CommunicatorPtr ic)
 //    if (baseDrone==0)
 //        throw "Could not create control proxy";
 
-    /*cast to ArDrone*/
+    //cast to ArDrone
 //    quadprx = jderobot::QuadrotorPrx::checkedCast(baseDrone);
 //    if (quadprx==0)
 //        throw "Invalid control proxy";
@@ -54,11 +65,13 @@ Sensors::Sensors(Ice::CommunicatorPtr ic)
 //        throw "Invalid imu proxy";
 //    pose3DDataPtr = p3dprx->getPose3DData();
 
+/*
     this->tracking=false;
     this->flying=false;
     this->rst=false;
 
 }
+*/
 
 Sensors::~Sensors(){
 
@@ -81,12 +94,16 @@ Sensors::~Sensors(){
 //}
 
 void Sensors::update()
-{
+{	
+	JdeRobotTypes::Image data;
     mutex.lock();
-        jderobot::ImageDataPtr data = cprx->getImageData(colorspaces::ImageRGB8::FORMAT_RGB8.get()->name);
-        image.create(data->description->height, data->description->width, CV_8UC3);
-        memcpy((unsigned char *) image.data ,&(data->pixelData[0]), image.cols*image.rows * 3);
+	data =  this->camera->getImage();
+    
+    image.create(data.height, data.width, CV_8UC3);
+        //memcpy((unsigned char *) image.data ,&(data->pixelData[0]), image.cols*image.rows * 3);
     mutex.unlock();
+
+
     mutexDrone.lock();
 //		navdata=adprx->getNavdata();
         //pose3DDataPtr = p3dprx->getPose3DData();
@@ -96,10 +113,15 @@ void Sensors::update()
 
 cv::Mat Sensors::getImage()
 {
-    mutex.lock();
-        cv::Mat result = image.clone();
-    mutex.unlock();
-    return result;
+	JdeRobotTypes::Image img;
+
+   
+    if (this->camera){
+    	img = this->camera->getImage();
+    }
+
+    return img.data;
+    
 }
 
 
