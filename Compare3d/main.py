@@ -10,8 +10,9 @@ signal.signal(signal.SIGINT, signal.SIG_DFL)
 
 if __name__ == '__main__':
     cfg = config.load(sys.argv[1])
-    if len(sys.argv)>2:
-        file_world = sys.argv[2]
+    path_to_markers = sys.argv[2]
+    if len(sys.argv)>3:
+        file_world = sys.argv[3]
     else:
         file_world = None
 
@@ -24,7 +25,7 @@ if __name__ == '__main__':
     pose_sim = jdrc.getPose3dClient("compare3d.Pose3DEstimated")
 
     app = QApplication(sys.argv)
-    frame = MainWindow(file_world=file_world)
+    frame = MainWindow(file_world=file_world,markers=path_to_markers)
     frame.setPose3Dsim(pose_sim)
     frame.setPose3dreal(pose_real)
     frame.show()

@@ -145,7 +145,7 @@ class MainWindow(QWidget):
             os.mkdir(self.path_result)
 
         np.save(os.path.join(self.path_result,"pose3dreal_list.npy"),self.pose3dreal_list)
-        np.save(os.path.join(self.path_result,"pose3dsim_list.npy"),self.pose3dreal_list)
+        np.save(os.path.join(self.path_result,"pose3dsim_list.npy"),self.pose3dsim_list)
         np.save(os.path.join(self.path_result, "pose3dError_list.npy"), self.pose3dError_list)
         self.textbox.setText("Done!")
 

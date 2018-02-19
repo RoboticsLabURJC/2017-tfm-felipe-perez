@@ -29,7 +29,7 @@ class MyDynamicMplCanvas(FigureCanvas):
         # Timer
         timer = QTimer(self)
         timer.timeout.connect(self.update_figure)
-        self.dt = 100
+        self.dt = 250
         timer.start(self.dt)
 
 
@@ -65,7 +65,7 @@ class MyDynamicMplCanvas(FigureCanvas):
 
 
             self.axes.plot(xEst, yEst,'r',
-                           xReal, yReal, 'b',xmap,ymap,'*k')
+                           xReal, yReal, '.b',xmap,ymap,'*k')
             self.axes.grid()
             self.draw()
 

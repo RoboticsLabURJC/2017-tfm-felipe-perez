@@ -5,6 +5,7 @@ import argparse
 import os, time
 import sys
 import numpy as np
+from gui.plotWall import loadWorld
 
 
 
@@ -23,6 +24,7 @@ if __name__=="__main__":
     Pose_estimated = np.load(path_pose3sim_list)
     Error = np.load(path_pose3Error_list)
 
+    xyWorld = loadWorld( sys.argv[2])
 
 
     ### Split data
@@ -57,7 +59,10 @@ if __name__=="__main__":
     ######### Figure 1 #####################
 
     #### XYZ real y estimado
-    plt.plot(PosRealx,PosRealy,PosEstx,PosEsty),\
+    for x,y in xyWorld:
+        plt.plot(x,y, 'k')
+
+    plt.plot(PosRealx,PosRealy,'r',PosEstx,PosEsty,'.b')
     plt.title("Real vs estimated")
     plt.xlabel("x(m)")
     plt.ylabel("y(m)")
