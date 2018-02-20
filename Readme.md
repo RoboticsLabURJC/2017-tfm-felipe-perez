@@ -1,5 +1,6 @@
 # USAGE:
 ## Simulation:
+### ICE:
 - First, you have to launch the world (AprilTags_kobuki.world):
 > $ gazebo AprilTags_kobuki.world
 - Second, you have to launch your algorithm to localizate:
