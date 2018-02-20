@@ -16,10 +16,10 @@ if __name__=="__main__":
     path_to_result = sys.argv[1]
 
     path_pose3dreal_list = os.path.join(path_to_result,"pose3dreal_list.npy")
-    path_pose3sim_list = os.path.join(path_to_result,"pose3dreal_list.npy")
+    path_pose3sim_list = os.path.join(path_to_result,"pose3dsim_list.npy")
     path_pose3Error_list = os.path.join(path_to_result, "pose3dError_list.npy")
 
-    print "Print the season: ",time.ctime(os.path.getctime(path_pose3Error_list))
+    print "Plotting the season: ",time.ctime(os.path.getctime(path_pose3Error_list))
     Pose_real = np.load(path_pose3dreal_list)
     Pose_estimated = np.load(path_pose3sim_list)
     Error = np.load(path_pose3Error_list)

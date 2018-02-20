@@ -158,10 +158,10 @@ class MainWindow(QWidget):
 
 
     def updateGUI(self):
-        self.pose3dsim=self.pose3dReal_client.getPose3d()
-        self.pose3dsim_list.append(self.pose3dsim)
-        self.pose3dReal=self.pose3dEstimated_client.getPose3d()
+        self.pose3dReal=self.pose3dReal_client.getPose3d()
         self.pose3dreal_list.append(self.pose3dReal)
+        self.pose3dsim=self.pose3dEstimated_client.getPose3d()
+        self.pose3dsim_list.append(self.pose3dsim)
         self.pose3dError = MainWindow.getError(self,poseReal=self.pose3dReal,poseEst=self.pose3dsim)
         self.pose3dError_list.append(self.pose3dError)
 

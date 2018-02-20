@@ -1,0 +1,17 @@
+CamAutoloc:
+  Camera:
+    Server: 2 # 0 -> Deactivate, 1 -> Ice , 2 -> ROS
+    Proxy: "cameraA:default -h localhost -p 9999"
+    Format: RGB8
+    Topic: "/TurtlebotROS/cameraR/image_raw"
+    Name: CamAutolocCamera1
+
+
+  Pose3D:
+    Server: 1 # 0 -> Deactivate, 1 -> Ice , 2 -> ROS
+    Proxy: "default -h 0.0.0.0 -p 8998"
+    Topic: "/slam_markers/pose"
+    Name: CamAutolocPose3d
+
+
+  NodeName: CamAutoloc
