@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_World = new World(this);  
 
-    m_CameraManager = new CameraManager("sim_camera.yml", 0, 0, 1); //(0, 0, 1) porque el eje óptico de la cámara es el eje z, me sirve para calcular el foa
+   
     m_KalmanFilter = new KalmanFilter();
     m_WeightedAverageFilter = new WeightedAverageFilter(WEIGHTED_AVERAGE_FILTER_SIZE);
 
@@ -32,12 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
 		std::printf("ICE\n");
 	}
 
-	//if (m_option==2)
-	//{
-		std::printf("ROS\n");
-		std::cout<<"initUI: "<<m_topic<<std::endl;
-		
-	//}
+	
 
 
     sharer = Sharer::getInstance();
@@ -173,10 +168,22 @@ void MainWindow::setOption(int option)
 
 }
 
+void MainWindow::setCalibFile(std::string calib_filename)
+{
+	m_calibFile = calib_filename;
+ 	m_CameraManager = new CameraManager(m_calibFile, 0, 0, 1); //(0, 0, 1) porque el eje óptico de la cámara es el eje z, me sirve para calcular el foa
+
+}
+
+
+
+
+
+
+
 void MainWindow::setTopic(std::string topic)
 {	
 	m_topic = topic;
-	std::cout<<"MainWindow::setTopic: "<<m_topic<<std::endl;
 	myPublisher.setTopic(m_topic); 
 }
 

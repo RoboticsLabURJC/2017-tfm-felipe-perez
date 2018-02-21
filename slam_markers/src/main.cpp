@@ -21,6 +21,13 @@
 
 int main(int argc, char *argv[])
 {
+
+	if (argc<3)
+	{
+	std::cout<<"Parameter error:\nUSAGE:\tslam_markers path_to_config.yml path_to_calib_file.yml\n The file markers.txt and .glade must be in the folder"<<std::endl;
+	exit(-1);
+	}
+
     QApplication a(argc, argv);
 
     Ice::CommunicatorPtr ic;
@@ -34,13 +41,14 @@ int main(int argc, char *argv[])
 		int serverPose=props.asInt("CamAutoloc.Pose3D.Server");
 		std::string topic = props.asString("CamAutoloc.Pose3D.Topic");
 		std::cout<<"Topic: "<<topic<<std::endl;
-		
+		std::string calib_filename = argv[2];
+
 
 		
 
 
         Sensors* sensors = new Sensors(jdrc);
-        threadGUI* gui = new threadGUI(sensors,serverPose,topic);
+        threadGUI* gui = new threadGUI(sensors,serverPose,topic,calib_filename);
         ThreadSensors* threadSensors = new ThreadSensors(sensors);
 
         threadSensors->start();

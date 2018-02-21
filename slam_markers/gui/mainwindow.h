@@ -38,8 +38,12 @@ private:
     QTimer* m_Timer;
     Sensors* m_Sensors;
     Eigen::Matrix4d m_RT;
+
 	int m_option; //ICE or ROS
 	std::string m_topic;
+	std::string m_calibFile;
+
+
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -50,6 +54,8 @@ public:
     void setSensors(Sensors* sensors);
 	void setOption(int option);
 	void setTopic(std::string topic);
+	void setCalibFile(std::string calib_filename);
+
     void updateThreadGUI();
 
     virtual void RunGraphicAlgorithm();

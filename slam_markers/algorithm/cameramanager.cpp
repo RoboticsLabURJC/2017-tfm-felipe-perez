@@ -22,16 +22,18 @@ namespace Ardrone
 
 using namespace Ardrone;
 
-CameraManager::CameraManager(/*int rows, int columns, */const std::string& calibFile, double foaX, double foaY, double foaZ)
+
+CameraManager::CameraManager(/*int rows, int columns, */const std::string& calibFile,double foaX, double foaY, double foaZ)
 {
-    //Calibración
-    // //////m_CameraParameters.readFromXMLFile(calibFile);
-    //m_CameraParameters.resize(cv::Size(columns, rows));
 
-   
 
-	
-    //Cámara real
+    //Matriz de parámetros intrínsecos
+    ifstream file(calibFile);
+    
+	if (!file)	//no utilizamos el archivo de calibracion
+    {
+ 	//Cámara real
+	std::cout<<"Usamos los parametros por defecto"<<std::endl;
     m_RealCamera.position.X = 0.0;
     m_RealCamera.position.Y = 0.0;
     m_RealCamera.position.Z = 0.0;
@@ -70,10 +72,11 @@ CameraManager::CameraManager(/*int rows, int columns, */const std::string& calib
     update_camera_matrix(&m_EstimatedCamera);
 
 
-    //Matriz de parámetros intrínsecos
-    ifstream file(calibFile);
-    if (!file)	//no utilizamos el archivo de calibracion
-    {
+
+
+
+
+
     double cam[] = { 187.336, 0, 160,
                       0, 187.336, 120,
                       0, 0, 1};
@@ -91,87 +94,15 @@ CameraManager::CameraManager(/*int rows, int columns, */const std::string& calib
     m_K(2,2) = 1;
     
 
-    /*
-    //Cámara real
-    m_RealCamera.position.X = 0.0;
-    m_RealCamera.position.Y = 0.0;
-    m_RealCamera.position.Z = 0.0;
-    m_RealCamera.position.H = 1.0;
-    m_RealCamera.foa.X = 0.0;
-    m_RealCamera.foa.Y = 0.0;
-    m_RealCamera.foa.Z = 0.0;
-    m_RealCamera.foa.H = 1.0;
-    m_RealCamera.roll = 0.0;
-    m_RealCamera.fdistx = m_CameraParameters.CameraMatrix.at<float>(0,0);
-    m_RealCamera.fdisty = m_CameraParameters.CameraMatrix.at<float>(1,1);
-    m_RealCamera.u0 = m_CameraParameters.CameraMatrix.at<float>(0,2);
-    m_RealCamera.v0 = m_CameraParameters.CameraMatrix.at<float>(1,2);
-    m_RealCamera.skew = 0.0;
-    m_RealCamera.rows = m_CameraParameters.CamSize.height;
-    m_RealCamera.columns = m_CameraParameters.CamSize.width;
-    update_camera_matrix(&m_RealCamera);
 
-    //Cámara estimada
-    m_EstimatedCamera.position.X = 0.0;
-    m_EstimatedCamera.position.Y = 0.0;
-    m_EstimatedCamera.position.Z = 0.0;
-    m_EstimatedCamera.position.H = 1.0;
-    m_EstimatedCamera.foa.X = 0.0;
-    m_EstimatedCamera.foa.Y = 0.0;
-    m_EstimatedCamera.foa.Z = 0.0;
-    m_EstimatedCamera.foa.H = 1.0;
-    m_EstimatedCamera.roll = 0.0;
-    m_EstimatedCamera.fdistx = m_CameraParameters.CameraMatrix.at<float>(0,0);
-    m_EstimatedCamera.fdisty = m_CameraParameters.CameraMatrix.at<float>(1,1);
-    m_EstimatedCamera.u0 = m_CameraParameters.CameraMatrix.at<float>(0,2);
-    m_EstimatedCamera.v0 = m_CameraParameters.CameraMatrix.at<float>(1,2);
-    m_EstimatedCamera.skew = 0.0;
-    m_EstimatedCamera.rows = m_CameraParameters.CamSize.height;
-    m_EstimatedCamera.columns = m_CameraParameters.CamSize.width;
-    update_camera_matrix(&m_EstimatedCamera);
-
-
-
-    //Matriz de parámetros intrínsecos
-    double cam[] = { m_CameraParameters.CameraMatrix.at<float>(0,0), m_CameraParameters.CameraMatrix.at<float>(0,1), m_CameraParameters.CameraMatrix.at<float>(0,2),
-                      m_CameraParameters.CameraMatrix.at<float>(1,0), m_CameraParameters.CameraMatrix.at<float>(1,1), m_CameraParameters.CameraMatrix.at<float>(1,2),
-                      m_CameraParameters.CameraMatrix.at<float>(2,0), m_CameraParameters.CameraMatrix.at<float>(2,1), m_CameraParameters.CameraMatrix.at<float>(2,2)};
-    cv::Mat auxMat(3, 3, CV_64FC1, cam);
-    auxMat.copyTo(m_CameraMatrix);
-
-    m_K(0,0) = m_CameraParameters.CameraMatrix.at<float>(0,0);
-    m_K(0,1) = m_CameraParameters.CameraMatrix.at<float>(0,1);
-    m_K(0,2) = m_CameraParameters.CameraMatrix.at<float>(0,2);
-    m_K(1,0) = m_CameraParameters.CameraMatrix.at<float>(1,0);
-    m_K(1,1) = m_CameraParameters.CameraMatrix.at<float>(1,1);
-    m_K(1,2) = m_CameraParameters.CameraMatrix.at<float>(1,2);
-    m_K(2,0) = m_CameraParameters.CameraMatrix.at<float>(2,0);
-    m_K(2,1) = m_CameraParameters.CameraMatrix.at<float>(2,1);
-    m_K(2,2) = m_CameraParameters.CameraMatrix.at<float>(2,2);
-
-
-    */
-
-    /***************************************************************************************************************************************/
-//    printf("--- %.3f %.3f %.3f %.3f ---\n", m_EstimatedCamera.k11, m_EstimatedCamera.k12, m_EstimatedCamera.k13, m_EstimatedCamera.k14);
-//    printf("--- %.3f %.3f %.3f %.3f ---\n", m_EstimatedCamera.k21, m_EstimatedCamera.k22, m_EstimatedCamera.k23, m_EstimatedCamera.k24);
-//    printf("--- %.3f %.3f %.3f %.3f ---\n\n", m_EstimatedCamera.k31, m_EstimatedCamera.k32, m_EstimatedCamera.k33, m_EstimatedCamera.k34);
-
-//    printf("--- %.3f %.3f %.3f ---\n", m_K(0,0), m_K(0,1), m_K(0,2));
-//    printf("--- %.3f %.3f %.3f ---\n", m_K(1,0), m_K(1,1), m_K(1,2));
-//    printf("--- %.3f %.3f %.3f ---\n\n", m_K(2,0), m_K(2,1), m_K(2,2));
-//    abort();
-    /***************************************************************************************************************************************/
-
-    //Matriz de parámetros de distorsión (TODO: Sacar de calibración)
     double dis[] = {0.0, 0.0, 0.0, 0.0, 0.0};
     cv::Mat distCoeffs(5, 1 ,CV_64FC1, dis);
     distCoeffs.copyTo(m_DistortionCoeffs);
     }
     else //usamos archivo calibracion
 
-    {
-
+    {	
+	std::cout<<"Usamos el archivo de calibracion: "<<calibFile<<std::endl;
     cv::FileStorage fs(calibFile, cv::FileStorage::READ);
     cv::Mat cameraMatrix, distCoeffs;
     fs["camera_matrix"] >> cameraMatrix;
@@ -190,6 +121,48 @@ CameraManager::CameraManager(/*int rows, int columns, */const std::string& calib
  
     distCoeffs.copyTo(distCoeffs);
      
+
+	//Cámara real
+
+    m_RealCamera.position.X = 0.0;
+    m_RealCamera.position.Y = 0.0;
+    m_RealCamera.position.Z = 0.0;
+    m_RealCamera.position.H = 1.0;
+    m_RealCamera.foa.X = 0.0;
+    m_RealCamera.foa.Y = 0.0;
+    m_RealCamera.foa.Z = 0.0;
+    m_RealCamera.foa.H = 1.0;
+    m_RealCamera.roll = 0.0;
+    m_RealCamera.fdistx = m_K(0,0);
+    m_RealCamera.fdisty = m_K(1,1);
+    m_RealCamera.u0 = m_K(0,2);
+    m_RealCamera.v0 = m_K(1,2);
+    m_RealCamera.skew = 0.0;
+    m_RealCamera.rows =  fs["image_width"];
+    m_RealCamera.columns = fs["image_height"];
+    update_camera_matrix(&m_RealCamera);
+
+    //Cámara estimada (Parámetros simulación gazebo)
+    m_EstimatedCamera.position.X = 0.0;
+    m_EstimatedCamera.position.Y = 0.0;
+    m_EstimatedCamera.position.Z = 0.0;
+    m_EstimatedCamera.position.H = 1.0;
+    m_EstimatedCamera.foa.X = 0.0;
+    m_EstimatedCamera.foa.Y = 0.0;
+    m_EstimatedCamera.foa.Z = 0.0;
+    m_EstimatedCamera.foa.H = 1.0;
+    m_EstimatedCamera.roll = 0.0;
+    m_EstimatedCamera.fdistx = m_K(0,0);
+    m_EstimatedCamera.fdisty = m_K(1,1);
+    m_EstimatedCamera.u0 = m_K(0,2);
+    m_EstimatedCamera.v0 = m_K(1,2);
+    m_EstimatedCamera.skew = 0.0;
+    m_EstimatedCamera.rows = 240;
+    m_EstimatedCamera.columns = 320;
+    update_camera_matrix(&m_EstimatedCamera);
+
+
+
     
     }
 
@@ -247,6 +220,8 @@ CameraManager::GetMarkerSize()
 {
     double result;
 
+
+
     std::ifstream file("markers.txt");
     std::string line;
     std::getline(file, line);
@@ -282,8 +257,8 @@ CameraManager::BuildMarkers()
 //    //Real world
 //    result[0] = new MarkerInfo(0, 1.5f, 0.0f, 0.6f, CV_PI/2, 0, CV_PI, MARKER_SIZE);
 
-    std::ifstream file("markers.txt");
 
+    std::ifstream file("markers.txt");
     std::string line;
     std::getline(file, line);
     while (std::getline(file, line))
@@ -506,6 +481,8 @@ CameraManager::GetLastMarkerDetected()
 {
     return m_LastMarkerDetected;
 }
+
+
 
 void
 CameraManager::SetRealPose(double x, double y, double z, double h, double roll, double pitch, double yaw)
