@@ -18,10 +18,10 @@ Then, you have the installed component and you can launch it.
 To launch this component you need some files:
 - "markers.txt": This file contains the pose markers to localizate the sensor
 - config.yml: This file contains the information to receive the camera information (ICE proxy or ROS topic) and to publish the estimate pose 3d(ICE or ROS topic).
-- "sim_calib.yml": this file contains the calibration parameters of the camera.
+- sim_calib.yml: this file contains the calibration parameters of the camera.
 > IMPORTANT: I have calibrated the camera with the fool from jderobot, so if you use other you have to change the names to camera_matrix and distortion_coefficients.
 
 Anyways, to launch the component you have to type:
-> $ slam_markers config.yml
+> $ slam_markers config.yml sim_calib.yml
 
-Where you launch it, it must contains the files "markers.txt" and "sim_calib.yml".
+Where you launch it, it must contains the files "markers.txt".
