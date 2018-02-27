@@ -1,6 +1,10 @@
 # Installation
 ## JdeRobot
+Following the instructions from JdeRobot page: [http://jderobot.org/Installation]
+
 ## Aruco
+To install this dependency, I have followed the instructions from [http://miloq.blogspot.com.es/2012/12/install-aruco-ubuntu-linux.html]
+and [https://sourceforge.net/projects/aruco/files/?source=navbar] to download the 2.0.9 version
 ## Compile
 To install this component you have to copy the folder slam_markers and paste in tools from jderobot repository.
 After that, you have to compile only the component slam_markers so you have to do:
