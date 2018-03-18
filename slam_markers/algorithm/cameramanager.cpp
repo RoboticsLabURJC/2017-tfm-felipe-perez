@@ -157,8 +157,8 @@ CameraManager::CameraManager(/*int rows, int columns, */const std::string& calib
     m_EstimatedCamera.u0 = m_K(0,2);
     m_EstimatedCamera.v0 = m_K(1,2);
     m_EstimatedCamera.skew = 0.0;
-    m_EstimatedCamera.rows = 240;
-    m_EstimatedCamera.columns = 320;
+    m_EstimatedCamera.rows =fs["image_width"];
+    m_EstimatedCamera.columns = fs["image_height"];
     update_camera_matrix(&m_EstimatedCamera);
 
 

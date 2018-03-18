@@ -17,6 +17,7 @@
 #include "jderobot/config/config.h"
 #include "jderobot/comm/communicator.hpp"
 #include <ros/ros.h>
+#include <geometry_msgs/Pose.h>
 
 
 int main(int argc, char *argv[])
@@ -29,9 +30,11 @@ int main(int argc, char *argv[])
 	}
 
     QApplication a(argc, argv);
-
-    Ice::CommunicatorPtr ic;
 	ros::init(argc, argv, "slam_markers");
+
+		Ice::CommunicatorPtr ic;
+		ic = Ice::initialize(argc, argv);
+	
     try
     {	
 		//-----------------Comm----------------//
@@ -40,12 +43,28 @@ int main(int argc, char *argv[])
 
 		int serverPose=props.asInt("CamAutoloc.Pose3D.Server");
 		std::string topic = props.asString("CamAutoloc.Pose3D.Topic");
-		std::cout<<"Topic: "<<topic<<std::endl;
 		std::string calib_filename = argv[2];
+		ros::Publisher pub;
 
+		if (serverPose == 2)
+		{
+		// Publish Pose3d with ROS
+		std::cout<<"ROS selected to publish pose3d"<<std::endl;
+		ros::NodeHandle n;
+		pub = n.advertise <geometry_msgs::Pose> ("prueba", 1);
+		std::cout<<"mi publicador"<<std::endl;
+		//
 
+		}
 		
+		std::string endpoint = props.asString("CamAutoloc.Pose3D.Proxy");
+		std::cout<<"EndPOINT: "<<endpoint<<endl;
 
+
+        Ice::ObjectAdapterPtr adapter = ic->createObjectAdapterWithEndpoints("Pose3D", endpoint);
+        Ice::ObjectPtr object = new Pose3DI();
+        adapter->add(object, ic->stringToIdentity("Pose3D"));
+        adapter->activate();
 
         Sensors* sensors = new Sensors(jdrc);
         threadGUI* gui = new threadGUI(sensors,serverPose,topic,calib_filename);
@@ -54,20 +73,18 @@ int main(int argc, char *argv[])
         threadSensors->start();
         gui->start();
 		
-		// Publish Pose3d with ICE
-		if (serverPose==1)
-		{
-		ic = Ice::initialize(argc, argv);
 		
-        std::string endpoint = props.asString("CamAutoloc.Pose3D.Proxy");
+		//if (serverPose==1)
+		//{
 
+		// Publish Pose3d with ICE
 
-        Ice::ObjectAdapterPtr adapter = ic->createObjectAdapterWithEndpoints("Pose3D", endpoint);
-        Ice::ObjectPtr object = new Pose3DI();
-        adapter->add(object, ic->stringToIdentity("Pose3D"));
-        adapter->activate();
+		
+        
         //ic->waitForShutdown();
-		}
+		//}
+
+	
     }
     catch(const Ice::Exception& ex)
     {

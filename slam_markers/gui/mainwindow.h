@@ -38,6 +38,8 @@ private:
     QTimer* m_Timer;
     Sensors* m_Sensors;
     Eigen::Matrix4d m_RT;
+    Sharer *sharer;
+	rosPublisher *myPublisher;
 
 	int m_option; //ICE or ROS
 	std::string m_topic;
@@ -52,7 +54,7 @@ public:
     ~MainWindow();
 
     void setSensors(Sensors* sensors);
-	void setOption(int option);
+	void setOption(int option, std::string);
 	void setTopic(std::string topic);
 	void setCalibFile(std::string calib_filename);
 
@@ -76,9 +78,9 @@ private Q_SLOTS:
     void on_copyBtn_clicked();
 
 private:
-    Sharer *sharer;
+
     Ui::MainWindow *ui;
-	rosPublisher myPublisher;
+
 
 private:
     void RegisterError();

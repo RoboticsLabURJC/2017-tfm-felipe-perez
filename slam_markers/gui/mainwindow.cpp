@@ -27,15 +27,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //m_RT = GeometryUtils::BuildRTMat(0, -0.15, 0, 0, 0, 0);
 	
-	if (m_option==1) //ICE
-	{
-		std::printf("ICE\n");
-	}
+	
 
 	
 
+	//if (m_option==1)
+		//{
+			sharer = Sharer::getInstance();
+		//}
 
-    sharer = Sharer::getInstance();
 
 //    time_t t = time(0);
 //    struct tm* now = localtime(&t);
@@ -119,14 +119,32 @@ MainWindow::updateThreadGUI()
                 printf("--- %03f %03f %03f ---\n", p.GetX(), p.GetY(), p.GetZ());
 		
 
-
-		myPublisher.publishPose(p.GetX(),p.GetY(),p.GetZ(),p.GetRoll(),p.GetPitch(),p.GetYaw());
-
+		if (m_option == 2)
+		{
+		//myPublisher->publishPose(p.GetX(),p.GetY(),p.GetZ(),p.GetRoll(),p.GetPitch(),p.GetYaw());
+		myPublisher->setPose(m_CameraManager->GetEstimatedPose());
+		}
+		
+		//else
+		//{
         sharer->setPose3D(m_CameraManager->GetEstimatedPose(), 1);
+		//}
     }
     else
-    {
-        sharer->setPose3D(m_CameraManager->GetEstimatedPose(), 0);
+    {	
+
+			if (m_option == 2)
+			{
+			//myPublisher->publishPose(0,0,0,0,0,0);
+				myPublisher->setPose(m_CameraManager->GetEstimatedPose());
+			}
+		
+			//else
+			//{
+		    sharer->setPose3D(m_CameraManager->GetEstimatedPose(), 0);
+			//}
+		
+
         //m_KalmanFilter->Reset();
         //m_WeightedAverageFilter->Reset();
     }
@@ -162,9 +180,14 @@ void MainWindow::setSensors(Sensors* sensors)
     m_Sensors = sensors;
 }
 
-void MainWindow::setOption(int option)
+void MainWindow::setOption(int option, std::string topic)
 {
 	m_option = option;
+	if (m_option==2)
+	{	
+		myPublisher = new rosPublisher(topic);
+		//myPublisher->setPublisher(pub);
+	}
 
 }
 
@@ -183,8 +206,13 @@ void MainWindow::setCalibFile(std::string calib_filename)
 
 void MainWindow::setTopic(std::string topic)
 {	
+	
+	if (m_option==2)
+	{
+	std::cout<<"topic: "<<topic<<std::endl;
 	m_topic = topic;
-	myPublisher.setTopic(m_topic); 
+	myPublisher->setTopic(m_topic);
+	} 
 }
 
 
