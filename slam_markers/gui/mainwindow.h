@@ -55,7 +55,6 @@ public:
 
     void setSensors(Sensors* sensors);
 	void setOption(int option, std::string);
-	void setTopic(std::string topic);
 	void setCalibFile(std::string calib_filename);
 
     void updateThreadGUI();

@@ -138,8 +138,8 @@ CameraManager::CameraManager(/*int rows, int columns, */const std::string& calib
     m_RealCamera.u0 = m_K(0,2);
     m_RealCamera.v0 = m_K(1,2);
     m_RealCamera.skew = 0.0;
-    m_RealCamera.rows =  fs["image_width"];
-    m_RealCamera.columns = fs["image_height"];
+    m_RealCamera.rows =  fs["image_height"];
+    m_RealCamera.columns = fs["image_width"];
     update_camera_matrix(&m_RealCamera);
 
     //Cámara estimada (Parámetros simulación gazebo)
@@ -157,8 +157,8 @@ CameraManager::CameraManager(/*int rows, int columns, */const std::string& calib
     m_EstimatedCamera.u0 = m_K(0,2);
     m_EstimatedCamera.v0 = m_K(1,2);
     m_EstimatedCamera.skew = 0.0;
-    m_EstimatedCamera.rows =fs["image_width"];
-    m_EstimatedCamera.columns = fs["image_height"];
+    m_EstimatedCamera.rows = fs["image_height"];
+    m_EstimatedCamera.columns = fs["image_width"];
     update_camera_matrix(&m_EstimatedCamera);
 
 

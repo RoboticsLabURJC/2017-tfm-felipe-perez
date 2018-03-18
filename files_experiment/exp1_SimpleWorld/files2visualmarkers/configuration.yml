@@ -8,9 +8,9 @@ CamAutoloc:
 
 
   Pose3D:
-    Server: 2 # 0 -> Deactivate, 1 -> Ice , 2 -> ROS
+    Server: 1 # 0 -> Deactivate, 1 -> Ice , 2 -> ROS
     Proxy: "default -h 0.0.0.0 -p 8998"
-    Topic: "poseROS"
+    Topic: "/visual_slam/pose"
     Name: CamAutolocPose3d
 
 

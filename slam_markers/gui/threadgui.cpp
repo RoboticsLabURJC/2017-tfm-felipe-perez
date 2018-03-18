@@ -13,14 +13,9 @@ threadGUI::threadGUI(Sensors* sensors,int option, std::string topic ,std::string
     int screenWidth = wid.screen()->width();
     int screenHeight = wid.screen()->height();
 	gui->setOption(option, topic);
-
     gui->setGeometry((screenWidth/2)-(width/2),(screenHeight/2)-(height/2),width,height);
     gui->setSensors(sensors);
-
 	gui->setCalibFile(calib_filename);
-
-
-	//gui->setTopic(topic);
     gui->show();
 
 }

@@ -30,10 +30,9 @@ int main(int argc, char *argv[])
 	}
 
     QApplication a(argc, argv);
-	ros::init(argc, argv, "slam_markers");
 
-		Ice::CommunicatorPtr ic;
-		ic = Ice::initialize(argc, argv);
+
+		
 	
     try
     {	
@@ -46,25 +45,29 @@ int main(int argc, char *argv[])
 		std::string calib_filename = argv[2];
 		ros::Publisher pub;
 
-		if (serverPose == 2)
+		if (serverPose == 1)
 		{
-		// Publish Pose3d with ROS
-		std::cout<<"ROS selected to publish pose3d"<<std::endl;
-		ros::NodeHandle n;
-		pub = n.advertise <geometry_msgs::Pose> ("prueba", 1);
-		std::cout<<"mi publicador"<<std::endl;
-		//
+			// Publish Pose3d with ROS
+
+			std::string endpoint = props.asString("CamAutoloc.Pose3D.Proxy");		
+			std::cout<<"You have selected ICE to publish the estimated pose:\n"<<endpoint<<std::endl;
+			Ice::CommunicatorPtr ic;
+			ic = Ice::initialize(argc, argv);
+
+		    Ice::ObjectAdapterPtr adapter = ic->createObjectAdapterWithEndpoints("Pose3D", endpoint);
+		    Ice::ObjectPtr object = new Pose3DI();
+		    adapter->add(object, ic->stringToIdentity("Pose3D"));
+		    adapter->activate();
+		
+
 
 		}
+		else
+		{
+			ros::init(argc, argv, "slam_markers");
+		}
 		
-		std::string endpoint = props.asString("CamAutoloc.Pose3D.Proxy");
-		std::cout<<"EndPOINT: "<<endpoint<<endl;
 
-
-        Ice::ObjectAdapterPtr adapter = ic->createObjectAdapterWithEndpoints("Pose3D", endpoint);
-        Ice::ObjectPtr object = new Pose3DI();
-        adapter->add(object, ic->stringToIdentity("Pose3D"));
-        adapter->activate();
 
         Sensors* sensors = new Sensors(jdrc);
         threadGUI* gui = new threadGUI(sensors,serverPose,topic,calib_filename);
@@ -73,16 +76,7 @@ int main(int argc, char *argv[])
         threadSensors->start();
         gui->start();
 		
-		
-		//if (serverPose==1)
-		//{
 
-		// Publish Pose3d with ICE
-
-		
-        
-        //ic->waitForShutdown();
-		//}
 
 	
     }

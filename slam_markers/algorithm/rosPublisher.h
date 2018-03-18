@@ -19,16 +19,13 @@ private:
 
 	ros::NodeHandle n;
 	ros::Publisher pub;
-	ros::Publisher pub_;
 	geometry_msgs::Pose pose3d;
 	Eigen::Matrix3f m;
-	std::string m_topic;
+
 
 public:
 	rosPublisher(const std::string& topic);
-	void setTopic(std::string topic);	
-	void publishPose(float x,float y,float z,float roll, float yaw, float pitch);
 	void setPose(const Ardrone::Pose p);
-	void setPublisher(ros::Publisher pub);
+
 
 };

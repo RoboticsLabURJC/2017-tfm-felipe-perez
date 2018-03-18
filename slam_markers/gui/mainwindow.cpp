@@ -31,10 +31,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	
 
-	//if (m_option==1)
-		//{
-			sharer = Sharer::getInstance();
-		//}
 
 
 //    time_t t = time(0);
@@ -121,14 +117,14 @@ MainWindow::updateThreadGUI()
 
 		if (m_option == 2)
 		{
-		//myPublisher->publishPose(p.GetX(),p.GetY(),p.GetZ(),p.GetRoll(),p.GetPitch(),p.GetYaw());
+
 		myPublisher->setPose(m_CameraManager->GetEstimatedPose());
 		}
 		
-		//else
-		//{
+		else
+		{
         sharer->setPose3D(m_CameraManager->GetEstimatedPose(), 1);
-		//}
+		}
     }
     else
     {	
@@ -137,12 +133,11 @@ MainWindow::updateThreadGUI()
 			{
 			//myPublisher->publishPose(0,0,0,0,0,0);
 				myPublisher->setPose(m_CameraManager->GetEstimatedPose());
-			}
-		
-			//else
-			//{
+			}		
+			else
+			{
 		    sharer->setPose3D(m_CameraManager->GetEstimatedPose(), 0);
-			//}
+			}
 		
 
         //m_KalmanFilter->Reset();
@@ -185,9 +180,15 @@ void MainWindow::setOption(int option, std::string topic)
 	m_option = option;
 	if (m_option==2)
 	{	
+		std::cout<<"ROS selected to publish pose3d"<<std::endl;
 		myPublisher = new rosPublisher(topic);
-		//myPublisher->setPublisher(pub);
+
 	}
+	else
+	{
+		sharer = Sharer::getInstance();
+	}
+
 
 }
 
@@ -201,19 +202,6 @@ void MainWindow::setCalibFile(std::string calib_filename)
 
 
 
-
-
-
-void MainWindow::setTopic(std::string topic)
-{	
-	
-	if (m_option==2)
-	{
-	std::cout<<"topic: "<<topic<<std::endl;
-	m_topic = topic;
-	myPublisher->setTopic(m_topic);
-	} 
-}
 
 
 void MainWindow::updateGUI_recieved()
