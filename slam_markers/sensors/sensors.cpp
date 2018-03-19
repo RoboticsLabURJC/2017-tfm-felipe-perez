@@ -5,93 +5,15 @@
 Sensors::Sensors(Comm::Communicator* jdrc)
 {
 	this-> jdrc = jdrc;
-	this-> camera = Comm::getCameraClient(jdrc,"CamAutoloc.Camera");
+	this-> camera = Comm::getCameraClient(jdrc,"VisualMarkers.Camera");
 
 
 }
-
-
-/*
-Sensors::Sensors(Ice::CommunicatorPtr ic)
-{
-    this-> ic = ic;
-    Ice::PropertiesPtr prop = ic->getProperties();
-    Ice::PropertiesPtr prop3 = ic->getProperties();
-    //Camera
-    Ice::ObjectPrx base = ic->propertyToProxy("CamAutoloc.Camera.Proxy");
-    //Ice::ObjectPrx base = ic->stringToProxy("cameraA:default -h localhost -p 9999");
-
-
-    std::cout<<"base: "<<base<<"\n";
-    if (0==base)
-        throw "Could not create ventral camera proxy";
-
-    //cast to CameraPrx
-    cprx = jderobot::CameraPrx::checkedCast(base);
-    if (0==cprx)
-        throw "Invalid ventral camera proxy";
-
-    jderobot::ImageDataPtr data = cprx->getImageData(colorspaces::ImageRGB8::FORMAT_RGB8.get()->name);
-
-    //ArDrone
-/*	Ice::ObjectPrx baseDrone = ic->stringToProxy("ArDroneControl:default -p 9998");
-    if (baseDrone==0)
-        throw "Could not create proxy";
-*/
-
-    /*cast to ArDrone*/
-/*	adprx = jderobot::ArDronePrx::checkedCast(baseDrone);
-    if (adprx==0)
-        throw "Invalid proxy";
-*/
-    //ArDrone
-//    Ice::ObjectPrx baseDrone = ic->propertyToProxy("UavViewer.ArDroneControl.Proxy");
-//    if (baseDrone==0)
-//        throw "Could not create control proxy";
-
-    //cast to ArDrone
-//    quadprx = jderobot::QuadrotorPrx::checkedCast(baseDrone);
-//    if (quadprx==0)
-//        throw "Invalid control proxy";
-
-
-//    //IMU
-//    Ice::ObjectPrx baseImu = ic->propertyToProxy("UavViewer.Imu.Proxy");
-//    if (baseImu==0)
-//        throw "Could not create imu proxy";
-
-//    p3dprx = jderobot::Pose3DPrx::checkedCast(baseImu);
-//    if (p3dprx==0)
-//        throw "Invalid imu proxy";
-//    pose3DDataPtr = p3dprx->getPose3DData();
-
-/*
-    this->tracking=false;
-    this->flying=false;
-    this->rst=false;
-
-}
-*/
 
 Sensors::~Sensors(){
 
 }
 
-//void Sensors::sendVelocitiesToUAV(float vx,float vy,float vz,float roll,float pitch,float yaw)
-//{
-//    mutexDrone.lock();
-//        jderobot::Velocities vel;
-//        vel.linear.x=vx;
-//        vel.linear.y=vy;
-//        vel.linear.z=vz;
-//        vel.angular.z=yaw;
-//        vel.angular.x=roll;
-//        vel.angular.y=pitch;
-
-//        //adprx->cmdVel(vel);
-//        quadprx->cmdVel(vel);
-//    mutexDrone.unlock();
-//}
 
 void Sensors::update()
 {	
