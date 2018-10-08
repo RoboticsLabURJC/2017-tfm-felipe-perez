@@ -15,6 +15,7 @@ cd ../../..
 apt install jderobot-deps-dev -y
 
 # Installation componenent
+cd /opt/jderobot/include/jderobot/jderobotutil; mkdir utils; cp -i CameraUtils.h utils/
 rm -rf build; mkdir build; cd build
 
 
