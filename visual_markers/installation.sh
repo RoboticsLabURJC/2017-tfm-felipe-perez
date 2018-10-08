@@ -1,6 +1,24 @@
 #!/bin/bash
 
+
+#### Installation deps
+## Aruco 2
+mkdir aruco_lib;cd aruco_lib;
+wget https://sourceforge.net/projects/aruco/files/2.0.19/aruco-2.0.19.zip 
+unzip aruco-2.0.19.zip
+cd aruco-2.0.19; mkdir build; cd build;
+cmake ..
+make
+make install
+cd ../../..
+## Jderobot-deps
+apt install jderobot-deps-dev -y
+
+# Installation componenent
 rm -rf build; mkdir build; cd build
+
+
+
 cmake .. \
 -DJderobotInterfaces=/opt/jderobot/lib/libJderobotInterfaces.so \
 -Dcomm=/opt/jderobot/lib/libcomm.so \
@@ -12,6 +30,6 @@ cmake .. \
 -Dconfig=/opt/jderobot/lib/libconfig.so \
 -Dlogger=/opt/jderobot/lib/liblogger.so \
 -DlibjderobotHandlers=/opt/jderobot/lib/libjderobotHandlers.so \
--DGlog=/usr/lib/x86_64-linux-gnu/libglog.so
--DlibIceStorm=/usr/lib/x86_64-linux-gnu/libIceStorm++11.so.36 \ 
+-DGlog=/usr/lib/x86_64-linux-gnu/libglog.so \
+-DlibIceStorm=/usr/lib/x86_64-linux-gnu/libIceStorm++11.so.36  
 make

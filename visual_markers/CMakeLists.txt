@@ -28,7 +28,7 @@ geometry_msgs)
 
 #find_package(OpenGL REQUIRED) 
 find_package(GLUT REQUIRED)
-#find_package(Ice 3.5.0 REQUIRED COMPONENTS Ice IceUtil)
+#find_package(Ice REQUIRED)
 
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}  ${Qt5Core_EXECUTABLE_COMPILE_FLAGS} ${Qt5Gui_EXECUTABLE_COMPILE_FLAGS} ${Qt5Svg_EXECUTABLE_COMPILE_FLAGS} -std=c++11 ")
@@ -308,6 +308,7 @@ target_link_libraries(visual_markers
 		${logger}
 		libeasyiceconfig
 		${Boost_LIBRARIES}
+		${jderobotutil}
 
 		
                 ${libjderobotHandlers}
