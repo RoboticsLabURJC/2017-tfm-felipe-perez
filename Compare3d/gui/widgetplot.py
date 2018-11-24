@@ -4,11 +4,12 @@ from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtCore import QTimer
 from operator import attrgetter
 import numpy as np
+import math
 
 
 class MyDynamicMplCanvas(FigureCanvas):
 
-    def __init__(self, option,pose_error,pose_est,pose_real,map,id_markers,world,parent=None, width=6, height=4, dpi=100):
+    def __init__(self, option,pose_error,pose_est,pose_real,map,id_markers,rpy_map,world,parent=None, width=6, height=4, dpi=100):
 
         self.fig = Figure(figsize=(width, height), dpi=dpi)
 
@@ -21,6 +22,7 @@ class MyDynamicMplCanvas(FigureCanvas):
         self.map = map
         self.id_markers = id_markers
         self.world = world
+        self.rpy_markers = rpy_map
         self.poseEst = pose_est
         self.poseReal = pose_real
         self.option = option
@@ -34,7 +36,12 @@ class MyDynamicMplCanvas(FigureCanvas):
         timer.start(self.dt)
 
 
-
+    def calculate_arrow(self,origin,rpy,scale=0.2):
+        x=origin[0]
+        y=origin[1]
+        dx=scale*math.cos(rpy[2])
+        dy=scale*math.sin(rpy[2])
+        return x,y,dx,dy
 
     def update_figure(self):
 
@@ -62,7 +69,10 @@ class MyDynamicMplCanvas(FigureCanvas):
 
             for i,xy in enumerate(zip(xmap, ymap)):
                 id = self.id_markers[i]
+                rpy = self.rpy_markers[i]
                 self.axes.annotate('%d' % id, xy=xy, textcoords='data')
+                x,y,dx,dy = self.calculate_arrow(xy,rpy)
+                self.axes.arrow(x,y,dx,dy,width=0.005,color='k')
 
 
             # print(xEst,yEst)

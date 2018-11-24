@@ -87,7 +87,7 @@ class MainWindow(QWidget):
         l = QVBoxLayout(self.main_widget)
         self.dc = MyDynamicMplCanvas(parent=self.main_widget, option=self.showNow,
                                      map=self.map, id_markers=self.id_markers,
-                                     world=self.world,
+                                     world=self.world,rpy_map=self.rpy_markers,
                                      pose_est=self.pose3dsim_list,
                                      pose_real=self.pose3dreal_list,
                                      pose_error=self.pose3dError_list)
@@ -198,6 +198,7 @@ class MainWindow(QWidget):
             pose.z = xyz[2]
             list_pose.append(pose)
         self.map = list(list_pose)
+        self.rpy_markers = mymap.rpy
 
     def loadworld(self):
         if self.file_world:
