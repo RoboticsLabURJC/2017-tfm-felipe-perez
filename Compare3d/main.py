@@ -22,12 +22,13 @@ if __name__ == '__main__':
     jdrc = comm.init(cfg, "compare3d")
     x = jdrc.getConfig()
 
+
     pose_real = jdrc.getPose3dClient("compare3d.Pose3DReal")
-    pose_sim = jdrc.getPose3dClient("compare3d.Pose3DEstimated")
+    # pose_sim = jdrc.getPose3dClient("compare3d.Pose3DEstimated")
 
     app = QApplication(sys.argv)
     frame = MainWindow(file_world=file_world,markers=path_to_markers,path=path_to_result)
-    frame.setPose3Dsim(pose_sim)
+    # frame.setPose3Dsim(pose_sim)
     frame.setPose3dreal(pose_real)
     topic_name_numMarker=cfg.getProperty("compare3d")["numMarker"]["Topic"]
     frame.set_num_markers_detected(topic_name_numMarker)
