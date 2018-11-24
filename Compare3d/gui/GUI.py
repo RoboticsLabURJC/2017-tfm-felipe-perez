@@ -1,11 +1,15 @@
 from PyQt5.QtWidgets import QWidget,QCheckBox,QPushButton,QLineEdit,QVBoxLayout
 from PyQt5.QtCore import Qt,pyqtSignal
-import jderobot
-import numpy as np
-import os
+from std_msgs.msg import Int8
 from widgetplot import MyDynamicMplCanvas
 from jderobotTypes.pose3d import Pose3d
 from plotWall import loadWorld
+from utils.markers import markers
+
+import jderobot
+import numpy as np
+import os
+import rospy
 
 
 
@@ -90,7 +94,8 @@ class MainWindow(QWidget):
         self.main_widget = QWidget(self)
         l = QVBoxLayout(self.main_widget)
         self.dc = MyDynamicMplCanvas(parent=self.main_widget, option=self.showNow,
-                                     map=self.map,world=self.world,
+                                     map=self.map,id_markers=self.id_markers,
+                                     world=self.world,
                                      pose_est=self.pose3dsim_list,
                                      pose_real=self.pose3dreal_list,
                                      pose_error = self.pose3dError_list)
@@ -156,6 +161,13 @@ class MainWindow(QWidget):
     def setPose3dreal(self,pose):
         self.pose3dReal_client = pose
 
+    def set_num_markers_detected(self,topic_name):
+        self.numMarker_sub = rospy.Subscriber("/visual_slam/numMarker", Int8, self.callback_int)
+    def callback_int(self,data):
+        self.numMarker=data.data
+        self.textbox.setText("Number of detected markers : %d"%(int(self.numMarker)))
+
+
 
     def updateGUI(self):
         self.pose3dReal=self.pose3dReal_client.getPose3d()
@@ -182,19 +194,16 @@ class MainWindow(QWidget):
 
 
     def loadmarkers(self):
-        a=[]
-
-        for line in open(self.filename, 'r').readlines():
-            line = line.rstrip('\n')
-            linelist = line.split()
-            if len(linelist)>1:
-                pose = jderobot.Pose3DData()
-                pose.x = float(linelist[1])
-                pose.y = float(linelist[2])
-                pose.z = float(linelist[3])
-                a.append(pose)
-
-        self.map = list(a)
+        list_pose=[]
+        mymap = markers(self.filename)
+        self.id_markers = mymap.id
+        for xyz in mymap.xyz:
+            pose = jderobot.Pose3DData()
+            pose.x = xyz[0]
+            pose.y = xyz[1]
+            pose.z = xyz[2]
+            list_pose.append(pose)
+        self.map = list(list_pose)
 
     def loadworld(self):
         if self.file_world:

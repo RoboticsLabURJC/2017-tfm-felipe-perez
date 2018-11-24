@@ -8,7 +8,7 @@ import numpy as np
 
 class MyDynamicMplCanvas(FigureCanvas):
 
-    def __init__(self, option,pose_error,pose_est,pose_real,map,world,parent=None, width=6, height=4, dpi=100):
+    def __init__(self, option,pose_error,pose_est,pose_real,map,id_markers,world,parent=None, width=6, height=4, dpi=100):
 
         self.fig = Figure(figsize=(width, height), dpi=dpi)
 
@@ -19,6 +19,7 @@ class MyDynamicMplCanvas(FigureCanvas):
 
 
         self.map = map
+        self.id_markers = id_markers
         self.world = world
         self.poseEst = pose_est
         self.poseReal = pose_real
@@ -58,13 +59,14 @@ class MyDynamicMplCanvas(FigureCanvas):
                     self.axes.plot(x, y, 'k')
 
 
-            i=0
-            for xy in zip(xmap, ymap):
-                self.axes.annotate('%s' % i, xy=xy, textcoords='data')
-                i+=1
+
+            for i,xy in enumerate(zip(xmap, ymap)):
+                id = self.id_markers[i]
+                self.axes.annotate('%d' % id, xy=xy, textcoords='data')
 
 
-            self.axes.plot(xEst, yEst,'r',
+            # print(xEst,yEst)
+            self.axes.plot(xEst, yEst,'.r',
                            xReal, yReal, '.b',xmap,ymap,'*k')
             self.axes.grid()
             self.draw()

@@ -29,6 +29,10 @@ if __name__ == '__main__':
     frame = MainWindow(file_world=file_world,markers=path_to_markers,path=path_to_result)
     frame.setPose3Dsim(pose_sim)
     frame.setPose3dreal(pose_real)
+    topic_name_numMarker=cfg.getProperty("compare3d")["numMarker"]["Topic"]
+    frame.set_num_markers_detected(topic_name_numMarker)
+
+
     frame.show()
 
     t2 = ThreadGui(frame)
